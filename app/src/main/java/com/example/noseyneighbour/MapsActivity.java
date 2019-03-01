@@ -8,6 +8,11 @@ public class MapsActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
 
+    private String crimeType = "all-crime";
+    private int year = 2018;
+    private int month = 6;
+    private float radius = 10;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,4 +43,31 @@ public class MapsActivity extends AppCompatActivity {
     public void setViewPager(int fragmentNum){
         viewPager.setCurrentItem(fragmentNum);
     }
+
+    public float getRadius() {
+        return radius;
+    }
+    public int getMonth() {
+        return month;
+    }
+    public int getYear() {
+        return year;
+    }
+    public String getCrimeType() {
+        return crimeType;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+    public void setMonth(int month) {
+        this.month = month;
+    }
+    public void setCrimeType(String crimeType) {
+        this.crimeType = crimeType;
+    }
+
 }
