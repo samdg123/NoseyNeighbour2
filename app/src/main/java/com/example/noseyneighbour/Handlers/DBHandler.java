@@ -15,7 +15,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private static DBHandler instance;
 
-    private static String DB_NAME = "Crimes.db";
+    private static String DB_NAME = "crimes.db";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 
@@ -56,7 +56,6 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(CRIME_TABLE_NAME, null, crimeValues);
 
-        db.close();
     }
 
     public ArrayList<Crime> getAllCrimes(){
@@ -85,16 +84,13 @@ public class DBHandler extends SQLiteOpenHelper {
         return crimes;
     }
 
-    public boolean addCategory(int ID, String string){
-        SQLiteDatabase db = getWritableDatabase();
+    public boolean addCategory(SQLiteDatabase db, int ID, String string){
         ContentValues categoryValues = new ContentValues();
 
         categoryValues.put(CATEGORY_COLUMN_ID, ID);
         categoryValues.put(CATEGORY_COLUMN_STRING, string);
 
         boolean returnVal = db.insert(CATEGORY_TABLE_NAME, null, categoryValues) != -1;
-
-        db.close();
 
         return db.insert(CATEGORY_TABLE_NAME, null, categoryValues) != -1;
     }
@@ -106,7 +102,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 CRIME_COLUMN_LONGITUDE + " NUMERIC NOT NULL, " +
                 CRIME_COLUMN_OUTCOME + " TEXT, " +
                 CRIME_COLUMN_MONTH + " INTEGER NOT NULL, " +
-                CRIME_COLUMN_YEAR + " INTEGER NOT NULL )";
+                CRIME_COLUMN_YEAR + " INTEGER NOT NULL, " +
+                CRIME_COLUMN_CATEGORY_ID + " INTEGER NOT NULL)";
         db.execSQL(query);
 
         query = "CREATE TABLE " + CATEGORY_TABLE_NAME + "( " +
@@ -116,21 +113,21 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     private void populateCategories(SQLiteDatabase db){
-        addCategory(1, "all-crime");
-        addCategory(2, "anti-social-behaviour");
-        addCategory(3, "bicycle-theft");
-        addCategory(4, "burglary");
-        addCategory(5, "criminal-damage-arson");
-        addCategory(6, "drugs");
-        addCategory(7, "other-theft");
-        addCategory(8, "possession-of-weapons");
-        addCategory(9, "public-order");
-        addCategory(10, "robbery");
-        addCategory(11, "shoplifting");
-        addCategory(12, "theft-from-the-person");
-        addCategory(13, "vehicle-crime");
-        addCategory(14, "violent-crime");
-        addCategory(15, "other-crime");
+        addCategory(db, 1, "all-crime");
+        addCategory(db, 2, "anti-social-behaviour");
+        addCategory(db, 3, "bicycle-theft");
+        addCategory(db, 4, "burglary");
+        addCategory(db, 5, "criminal-damage-arson");
+        addCategory(db, 6, "drugs");
+        addCategory(db, 7, "other-theft");
+        addCategory(db, 8, "possession-of-weapons");
+        addCategory(db, 9, "public-order");
+        addCategory(db, 10, "robbery");
+        addCategory(db, 11, "shoplifting");
+        addCategory(db, 12, "theft-from-the-person");
+        addCategory(db, 13, "vehicle-crime");
+        addCategory(db, 14, "violent-crime");
+        addCategory(db, 15, "other-crime");
     }
 
     public DBHandler(Context context) {

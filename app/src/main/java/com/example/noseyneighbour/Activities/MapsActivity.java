@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class MapsActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
+    private MapViewFragment mapViewFragment;
+    private MapMenuFragment mapMenuFragment;
     private ArrayList<Crime> crimes;
 
     private String crimeType = "all-crime";
@@ -44,8 +46,10 @@ public class MapsActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MapViewFragment(), "MapFragment");
-        adapter.addFragment(new MapMenuFragment(), "MapMenu");
+        mapViewFragment = new MapViewFragment();
+        mapMenuFragment = new MapMenuFragment();
+        adapter.addFragment(mapViewFragment, "MapFragment");
+        adapter.addFragment(mapMenuFragment, "MapMenu");
         viewPager.setAdapter(adapter);
     }
 
@@ -67,6 +71,12 @@ public class MapsActivity extends AppCompatActivity {
     }
     public ArrayList<Crime> getCrimes() {
         return crimes;
+    }
+    public MapMenuFragment getMapMenuFragment() {
+        return mapMenuFragment;
+    }
+    public MapViewFragment getMapViewFragment() {
+        return mapViewFragment;
     }
 
     public void setYear(int year) {
