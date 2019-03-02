@@ -1,4 +1,4 @@
-package com.example.noseyneighbour;
+package com.example.noseyneighbour.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

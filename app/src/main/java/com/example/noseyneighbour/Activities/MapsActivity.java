@@ -1,12 +1,21 @@
-package com.example.noseyneighbour;
+package com.example.noseyneighbour.Activities;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.noseyneighbour.Classes.Crime;
+import com.example.noseyneighbour.Fragments.MapViewFragment;
+import com.example.noseyneighbour.Fragments.MapMenuFragment;
+import com.example.noseyneighbour.R;
+import com.example.noseyneighbour.Adapters.SectionsStatePagerAdapter;
+
+import java.util.ArrayList;
+
 public class MapsActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
+    private ArrayList<Crime> crimes;
 
     private String crimeType = "all-crime";
     private int year = 2018;
@@ -56,6 +65,9 @@ public class MapsActivity extends AppCompatActivity {
     public String getCrimeType() {
         return crimeType;
     }
+    public ArrayList<Crime> getCrimes() {
+        return crimes;
+    }
 
     public void setYear(int year) {
         this.year = year;
@@ -69,5 +81,7 @@ public class MapsActivity extends AppCompatActivity {
     public void setCrimeType(String crimeType) {
         this.crimeType = crimeType;
     }
-
+    public void setCrimes(ArrayList<Crime> crimes) {
+        this.crimes = crimes;
+    }
 }

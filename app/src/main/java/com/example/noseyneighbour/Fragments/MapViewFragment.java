@@ -1,4 +1,4 @@
-package com.example.noseyneighbour;
+package com.example.noseyneighbour.Fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -16,14 +16,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
+import com.example.noseyneighbour.Classes.Crime;
+import com.example.noseyneighbour.Activities.MapsActivity;
+import com.example.noseyneighbour.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.maps.android.clustering.ClusterManager;
 
@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
     private ImageView configureBtn;
     private ClusterManager<Crime> clusterManager;
     private Location globalLocation;
+    private ArrayList<Crime> crimes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -183,7 +185,10 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
             outcomeStatus = outcomeStatus.replace("\"", "");
             Log.d("outcomeStatus", outcomeStatus);
 
-            clusterManager.addItem(new Crime(category, latitude, longitude, outcomeStatus));
+            Crime crime = new Crime(category, latitude, longitude, outcomeStatus);
+
+            clusterManager.addItem(crime);
+            crimes.add(crime);
         }
     }
 
