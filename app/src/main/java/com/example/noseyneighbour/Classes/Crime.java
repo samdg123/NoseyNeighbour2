@@ -12,10 +12,12 @@ public class Crime implements ClusterItem {
     private String outcomeStatus;
 
     public Crime(){}
-    public Crime(String category, double latitude, double longitude, String outcomeStatus){
+    public Crime(String category, double latitude, double longitude, String outcomeStatus, int year, int month){
         this.category = category;
         position = new LatLng(latitude, longitude);
         this.outcomeStatus = outcomeStatus;
+        this.year = year;
+        this.month = month;
     }
 
 

@@ -172,7 +172,7 @@ public class DataRetrival extends AsyncTask<Void, Void, String> {
             outcomeStatus = outcomeStatus.replace("\"", "");
             Log.d("outcomeStatus", outcomeStatus);
 
-            Crime crime = new Crime(category, latitude, longitude, outcomeStatus);
+            Crime crime = new Crime(category, latitude, longitude, outcomeStatus, year, month);
 
             crimes.add(crime);
             addCrimeToDB(crime);

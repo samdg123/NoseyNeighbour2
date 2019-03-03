@@ -104,7 +104,19 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
             DataRetrival dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
             dataRetrival.execute();
 
+
+            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()-2, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrival.execute();
+            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()-1, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrival.execute();
+            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+1, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrival.execute();
+            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+2, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrival.execute();
+
             displayToast(location);
+
+            ((MapsActivity)getActivity()).setLocation(location);
         }
     }
 
@@ -125,6 +137,10 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
     public void setClusterManagerItems(ArrayList<Crime> crimes) {
         clusterManager.clearItems();
         this.clusterManager.addItems(crimes);
+    }
+
+    public GoogleMap getGoogleMap() {
+        return googleMap;
     }
 
     private void configureClicked(){

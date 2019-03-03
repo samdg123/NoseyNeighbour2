@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -110,37 +111,30 @@ public class CrimeGraph extends View {
 
     private float calcPointX(int[] point){
         float x;
-        long monthsSinceStart;
+        int monthsSinceStart;
 
-        monthsSinceStart = graphWidth* ((point[1] - firstYear) * 12) + (point[2] - 1);
+        monthsSinceStart = ((point[1] * 12) + point[2]) - xStartValue;
 
-        x = padding + monthsSinceStart/xRangeMonths;
+        x = padding + (monthsSinceStart*graphWidth)/xRangeMonths;
 
         return x;
     }
 
     //private void setYRangeKG(){
-    //    DBHandler dbHandler = DBHandler.getInstance(context);
+    //    DBHandler dbHandler = new DBHandler(context);
     //
     //    yRangeKG = dbHandler.getWeightKGRange();
     //    yStartValue = dbHandler.getMinWeight();
     //}
 
     private void setXRange(){
-        //a non db method of calculating range
-        //int lastIndex = crimes.size() - 1;
-        //LocalDate firstDate = crimes.get(0).getDate();
-        //LocalDate lastDate = crimes.get(lastIndex).getDate();
-        //xRangeDays = ChronoUnit.DAYS.between(lastDate, firstDate);
-
-        //DBHandler dbHandler = DBHandler.getInstance(context);
-
         int lastIndex = numCrimesList.size()-1;
         int yearsRange = numCrimesList.get(lastIndex)[1] - numCrimesList.get(0)[1];
         int monthsRange = numCrimesList.get(lastIndex)[2] - numCrimesList.get(0)[2];
 
         xRangeMonths = (yearsRange*12) + monthsRange;
-        xStartValue = ((firstYear - numCrimesList.get(0)[1]) * 12) + (numCrimesList.get(0)[2] - 1);
+        xStartValue = (numCrimesList.get(0)[1] * 12) + numCrimesList.get(0)[2];
+        Log.d("xrange", "monthrange is " + monthsRange + " and yearsrange is " + yearsRange + "...  and numcrimes is " + lastIndex);
     }
 
     private void plotGraphAxis(Canvas canvas, Paint paint){
@@ -163,30 +157,16 @@ public class CrimeGraph extends View {
     }
 
     private void setNumCrimesList(){
-        numCrimesList.clear();
+        numCrimesList = new ArrayList<>();
         DBHandler dbHandler = new DBHandler(getContext());
-        int[] numCrimes = new int[3];
-        int lowestNum = 100000;
-        int highestNum = 0;
 
-        for (int y = 2015; y < 2019; y++) {
-            for (int m = 1; m < 13; m++) {
-                numCrimes[0] = dbHandler.countCrimesInMonth(y, m);
-                numCrimes[1] = y;
-                numCrimes[2] = m;
+        numCrimesList = dbHandler.countCrimesForAllMonths();
+        yStartValue = dbHandler.countLowestCrimeMonth();
+        yRange = dbHandler.countHighestCrimeMonth() - yStartValue;
 
-                numCrimesList.add(numCrimes);
-
-                if (numCrimes[0] < lowestNum) {
-                    lowestNum = numCrimes[0];
-                } else if (numCrimes[0] > highestNum) {
-                    highestNum = numCrimes[0];
-                }
-            }
+        for (int[] crime : numCrimesList) {
+            Log.d("CrimeGraph", "number of crimes: " + crime[0] + ", year: " + crime[1] + ", month: " + crime[2]);
         }
-
-        yStartValue = lowestNum;
-        yRange = highestNum - lowestNum;
     }
 
     private void init(Context context) {

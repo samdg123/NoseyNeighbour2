@@ -1,10 +1,12 @@
 package com.example.noseyneighbour.Activities;
 
+import android.location.Location;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.noseyneighbour.Classes.Crime;
+import com.example.noseyneighbour.DataRetrival;
 import com.example.noseyneighbour.Fragments.MapViewFragment;
 import com.example.noseyneighbour.Fragments.MapMenuFragment;
 import com.example.noseyneighbour.R;
@@ -18,10 +20,11 @@ public class MapsActivity extends AppCompatActivity {
     private MapViewFragment mapViewFragment;
     private MapMenuFragment mapMenuFragment;
     private ArrayList<Crime> crimes;
+    private Location location = null;
 
     private String crimeType = "all-crime";
-    private int year = 2018;
-    private int month = 6;
+    private int year = 2017;
+    private int month = 7;
     private float radius = 10;
 
     @Override
@@ -93,5 +96,9 @@ public class MapsActivity extends AppCompatActivity {
     }
     public void setCrimes(ArrayList<Crime> crimes) {
         this.crimes = crimes;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
