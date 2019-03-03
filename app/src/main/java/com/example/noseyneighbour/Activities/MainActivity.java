@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void savedCrimesClicked(){
-
+        Intent intent = new Intent(this, SavedCrimesActivity.class);
+        startActivity(intent);
     }
 }

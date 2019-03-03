@@ -37,6 +37,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
     private Location globalLocation;
     private ArrayList<Crime> crimes;
 
+    private boolean needsRedraw = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
@@ -113,6 +115,12 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
             dataRetrival.execute();
             dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+2, ((MapsActivity)getActivity()).getRadius(), location, getContext());
             dataRetrival.execute();
+            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+3, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrival.execute();
+            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+4, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrival.execute();
+            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+5, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrival.execute();
 
             displayToast(location);
 
@@ -138,9 +146,15 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
         clusterManager.clearItems();
         this.clusterManager.addItems(crimes);
     }
+    public void setNeedsRedraw(boolean needsRedraw) {
+        this.needsRedraw = needsRedraw;
+    }
 
     public GoogleMap getGoogleMap() {
         return googleMap;
+    }
+    public MapView getmMapView() {
+        return mMapView;
     }
 
     private void configureClicked(){

@@ -27,11 +27,14 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String CRIME_COLUMN_OUTCOME = "Outcome";
     private static final String CRIME_COLUMN_MONTH = "Month";
     private static final String CRIME_COLUMN_YEAR = "Year";
-    private static final String CRIME_COLUMN_CATEGORY_ID = "CategoryID";
+    private static final String CRIME_COLUMN_CATEGORY = "Category";
 
-    private static final String CATEGORY_TABLE_NAME = "Category";
-    private static final String CATEGORY_COLUMN_ID = "ID";
-    private static final String CATEGORY_COLUMN_STRING = "String";
+    //private static final String CATEGORY_TABLE_NAME = "Category";
+    //private static final String CATEGORY_COLUMN_ID = "ID";
+    //private static final String CATEGORY_COLUMN_STRING = "String";
+
+    private static final String FAVORITE_TABLE_NAME = "Favorite";
+    private static final String FAVORITE_COLUMN_CRIMEID = "CrimeID";
 
     public int crimesTableSize(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -114,7 +117,7 @@ public class DBHandler extends SQLiteOpenHelper {
         crimeValues.put(CRIME_COLUMN_MONTH, crime.getMonth());
         crimeValues.put(CRIME_COLUMN_YEAR, crime.getYear());
         crimeValues.put(CRIME_COLUMN_OUTCOME, crime.getOutcomeStatus());
-        crimeValues.put(CRIME_COLUMN_CATEGORY_ID, 1);
+        crimeValues.put(CRIME_COLUMN_CATEGORY, crime.getCategory());
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(CRIME_TABLE_NAME, null, crimeValues);
@@ -125,19 +128,19 @@ public class DBHandler extends SQLiteOpenHelper {
     public ArrayList<Crime> getAllCrimes(){
         ArrayList<Crime> crimes = new ArrayList<Crime>();
 
-        String query = "SELECT * FROM " + CRIME_TABLE_NAME + ", " + CATEGORY_TABLE_NAME +
-                " WHERE " + CATEGORY_TABLE_NAME + "." + CATEGORY_COLUMN_ID + " = " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_ID;
+        String query = "SELECT  " + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY +
+                " FROM " + CRIME_TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
         while (cursor.moveToNext()){
             Crime crime = new Crime();
 
-            crime.setPosition(new LatLng(cursor.getFloat(1), cursor.getFloat(2)));
-            crime.setOutcomeStatus(cursor.getString(3));
-            crime.setCategory(cursor.getString(7));
-            crime.setMonth(cursor.getInt(4));
-            crime.setYear(cursor.getInt(5));
+            crime.setPosition(new LatLng(cursor.getFloat(0), cursor.getFloat(1)));
+            crime.setOutcomeStatus(cursor.getString(2));
+            crime.setCategory(cursor.getString(5));
+            crime.setMonth(cursor.getInt(3));
+            crime.setYear(cursor.getInt(4));
 
             crimes.add(crime);
         }
@@ -150,16 +153,16 @@ public class DBHandler extends SQLiteOpenHelper {
         return crimes;
     }
 
-    public boolean addCategory(SQLiteDatabase db, int ID, String string){
-        ContentValues categoryValues = new ContentValues();
-
-        categoryValues.put(CATEGORY_COLUMN_ID, ID);
-        categoryValues.put(CATEGORY_COLUMN_STRING, string);
-
-        boolean returnVal = db.insert(CATEGORY_TABLE_NAME, null, categoryValues) != -1;
-
-        return db.insert(CATEGORY_TABLE_NAME, null, categoryValues) != -1;
-    }
+    //public boolean addCategory(SQLiteDatabase db, int ID, String string){
+    //    ContentValues categoryValues = new ContentValues();
+//
+    //    categoryValues.put(CATEGORY_COLUMN_ID, ID);
+    //    categoryValues.put(CATEGORY_COLUMN_STRING, string);
+//
+    //    boolean returnVal = db.insert(CATEGORY_TABLE_NAME, null, categoryValues) != -1;
+//
+    //    return db.insert(CATEGORY_TABLE_NAME, null, categoryValues) != -1;
+    //}
 
     private void createTables(SQLiteDatabase db){
         String query = "CREATE TABLE " + CRIME_TABLE_NAME + "( " +
@@ -169,32 +172,36 @@ public class DBHandler extends SQLiteOpenHelper {
                 CRIME_COLUMN_OUTCOME + " TEXT, " +
                 CRIME_COLUMN_MONTH + " INTEGER NOT NULL, " +
                 CRIME_COLUMN_YEAR + " INTEGER NOT NULL, " +
-                CRIME_COLUMN_CATEGORY_ID + " INTEGER NOT NULL)";
+                CRIME_COLUMN_CATEGORY + " TEXT NOT NULL)";
         db.execSQL(query);
 
-        query = "CREATE TABLE " + CATEGORY_TABLE_NAME + "( " +
-                CATEGORY_COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
-                CATEGORY_COLUMN_STRING + " TEXT NOT NULL UNIQUE )";
+        //query = "CREATE TABLE " + CATEGORY_TABLE_NAME + "( " +
+        //        CATEGORY_COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+        //        CATEGORY_COLUMN_STRING + " TEXT NOT NULL UNIQUE )";
+        //db.execSQL(query);
+
+        query = "CREATE TABLE " + FAVORITE_TABLE_NAME + "( " +
+                FAVORITE_COLUMN_CRIMEID + " INTEGER NOT NULL UNIQUE, PRIMARY KEY ( " + FAVORITE_COLUMN_CRIMEID + " ))";
         db.execSQL(query);
     }
 
-    private void populateCategories(SQLiteDatabase db){
-        addCategory(db, 1, "all-crime");
-        addCategory(db, 2, "anti-social-behaviour");
-        addCategory(db, 3, "bicycle-theft");
-        addCategory(db, 4, "burglary");
-        addCategory(db, 5, "criminal-damage-arson");
-        addCategory(db, 6, "drugs");
-        addCategory(db, 7, "other-theft");
-        addCategory(db, 8, "possession-of-weapons");
-        addCategory(db, 9, "public-order");
-        addCategory(db, 10, "robbery");
-        addCategory(db, 11, "shoplifting");
-        addCategory(db, 12, "theft-from-the-person");
-        addCategory(db, 13, "vehicle-crime");
-        addCategory(db, 14, "violent-crime");
-        addCategory(db, 15, "other-crime");
-    }
+    //private void populateCategories(SQLiteDatabase db){
+    //    addCategory(db, 1, "all-crime");
+    //    addCategory(db, 2, "anti-social-behaviour");
+    //    addCategory(db, 3, "bicycle-theft");
+    //    addCategory(db, 4, "burglary");
+    //    addCategory(db, 5, "criminal-damage-arson");
+    //    addCategory(db, 6, "drugs");
+    //    addCategory(db, 7, "other-theft");
+    //    addCategory(db, 8, "possession-of-weapons");
+    //    addCategory(db, 9, "public-order");
+    //    addCategory(db, 10, "robbery");
+    //    addCategory(db, 11, "shoplifting");
+    //    addCategory(db, 12, "theft-from-the-person");
+    //    addCategory(db, 13, "vehicle-crime");
+    //    addCategory(db, 14, "violent-crime");
+    //    addCategory(db, 15, "other-crime");
+    //}
 
     public DBHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -208,7 +215,6 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         createTables(db);
-        populateCategories(db);
     }
 
     @Override

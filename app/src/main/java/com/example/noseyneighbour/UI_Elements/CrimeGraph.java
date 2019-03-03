@@ -34,7 +34,6 @@ public class CrimeGraph extends View {
     private @ColorInt
     int backgroundColour;
     private Context context;
-    private final int firstYear = 2015;
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -89,16 +88,42 @@ public class CrimeGraph extends View {
         paint.setStrokeWidth(16);
         paint.setColor(Color.BLUE);
 
-        //Remember y=0 is the top of the canvas
-        if (y < prevY){
-            paint.setColor(Color.GREEN);
-        } else if (y > prevY) {
-            paint.setColor(Color.RED);
-        } else {
-            paint.setColor(Color.GRAY);
-        }
+        int [] rgb = calculateLineColour(x, y, prevX, prevY);
+
+        paint.setColor(Color.rgb(rgb[0], rgb[1], rgb[2]));
 
         canvas.drawLine(prevX, prevY, x, y, paint);
+    }
+
+    private int[] calculateLineColour(float x, float y, float prevX, float prevY){
+        //int[0] = red, int[1] = green, int[2] = blue
+        int[] rgb = new int[3];
+
+        float gradient = ((y-prevY)/(x-prevX))/2;
+
+        if (gradient > 0) {
+            rgb[1] = Math.round(gradient*150);
+            if (rgb[1] > 255) {
+                rgb[1] = 255;
+            }
+
+            //lightening the colour up
+            rgb[0] = (255-rgb[1])/2;
+            rgb[2] = (255-rgb[1])/2;
+        }
+
+        if (gradient < 0) {
+            rgb[0] = Math.round(0-(gradient*150));
+            if (rgb[0] > 255) {
+                rgb[0] = 255;
+            }
+
+            //lightening the colour up
+            rgb[1] = (255-rgb[0])/2;
+            rgb[2] = (255-rgb[0])/2;
+        }
+
+        return rgb;
     }
 
     private float calcPointY(int[] point){

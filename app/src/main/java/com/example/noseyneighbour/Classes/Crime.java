@@ -11,6 +11,7 @@ public class Crime implements ClusterItem {
     private String category;
     private String outcomeStatus;
 
+
     public Crime(){}
     public Crime(String category, double latitude, double longitude, String outcomeStatus, int year, int month){
         this.category = category;
