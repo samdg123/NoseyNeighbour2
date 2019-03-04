@@ -116,6 +116,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         for (Crime crime : crimes) {
+
             ContentValues crimeValues = new ContentValues();
 
             crimeValues.put(CRIME_COLUMN_LATITUDE, crime.getPosition().latitude);
@@ -127,6 +128,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
             db.replace(CRIME_TABLE_NAME, null, crimeValues);
             Log.d("DBHandler", "crime added, year = " + crime.getYear() + ", month = " + crime.getMonth());
+            Log.d("DBHandler", "Now " + crimesTableSize() + " items in crime table");
         }
 
         db.close();
@@ -197,7 +199,9 @@ public class DBHandler extends SQLiteOpenHelper {
                 CRIME_COLUMN_OUTCOME + " TEXT, " +
                 CRIME_COLUMN_MONTH + " INTEGER NOT NULL, " +
                 CRIME_COLUMN_YEAR + " INTEGER NOT NULL, " +
-                CRIME_COLUMN_CATEGORY + " TEXT NOT NULL)";
+                CRIME_COLUMN_CATEGORY + " TEXT NOT NULL, " +
+                "UNIQUE (" + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY + ")" +
+                ")";
         db.execSQL(query);
 
         //query = "CREATE TABLE " + CATEGORY_TABLE_NAME + "( " +
