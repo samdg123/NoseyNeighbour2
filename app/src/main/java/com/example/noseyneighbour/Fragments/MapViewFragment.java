@@ -1,10 +1,12 @@
 package com.example.noseyneighbour.Fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -26,7 +28,7 @@ import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
 
-public class MapViewFragment extends Fragment implements OnMapReadyCallback{
+public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
     MapView mMapView;
     private GoogleMap googleMap;
@@ -46,7 +48,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
         return rootView;
     }
 
-    private void init(View rootView, Bundle savedInstanceState){
+    private void init(View rootView, Bundle savedInstanceState) {
         configureBtn = rootView.findViewById(R.id.configureBtn);
         configureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +84,15 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
+
+            Criteria criteria = new Criteria();
+            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            String provider = locationManager.getBestProvider(criteria, false);
+
+            globalLocation = locationManager.getLastKnownLocation(provider);
+
+            setMarkers();
+
             googleMap.setMyLocationEnabled(true);
             googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
                 @Override
@@ -93,21 +104,16 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
         } else {
         }
 
-        googleMap.setOnMyLocationClickListener(new LocationClicked());
     }
 
-    class LocationClicked implements GoogleMap.OnMyLocationClickListener
-    {
-        @Override
-        public void onMyLocationClick(@NonNull Location location) {
-            globalLocation = location;
-            DataRetrieval dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrieval.execute();
+    public void setMarkers(){
+        googleMap.clear();
+        DataRetrieval dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), globalLocation, getContext());
+        dataRetrieval.execute();
 
-            displayToast(location);
+        displayToast(globalLocation);
 
-            ((MapsActivity)getActivity()).setLocation(location);
-        }
+        ((MapsActivity)getActivity()).setLocation(globalLocation);
     }
 
     private void setUpClusterer(){
@@ -128,9 +134,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
         clusterManager.clearItems();
         clusterManager.addItems(crimes);
         clusterManager.cluster();
-    }
-    public void setNeedsRedraw(boolean needsRedraw) {
-        this.needsRedraw = needsRedraw;
     }
 
     public GoogleMap getGoogleMap() {

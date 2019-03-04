@@ -1,7 +1,6 @@
 package com.example.noseyneighbour.Fragments;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -71,6 +69,7 @@ public class MapMenuFragment extends Fragment {
 
     private void searchClicked(){
         setCrimeSearchParameters();
+        mapsActivity.getMapViewFragment().setMarkers();
         mapsActivity.setViewPager(0);
     }
     private void graphClicked() {
