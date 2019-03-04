@@ -70,7 +70,7 @@ public class MapMenuFragment extends Fragment {
     private void searchClicked(){
         setCrimeSearchParameters();
         mapsActivity.getMapViewFragment().setMarkers();
-        mapsActivity.setViewPager(0);
+        mapsActivity.setViewPager(1);
     }
     private void graphClicked() {
         setCrimeSearchParameters();

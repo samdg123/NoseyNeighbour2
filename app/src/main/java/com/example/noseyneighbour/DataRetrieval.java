@@ -116,6 +116,7 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
         reader.beginArray();
         reader.beginObject();
 
+        int id = 0;
         String category = "";
         double latitude = 0;
         double longitude = 0;
@@ -136,10 +137,10 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
                 while (reader.hasNext()) {
                     name = reader.nextName();
                     if (name.equals("latitude")) {
-                        latitude = Double.parseDouble(reader.nextString());
+                        latitude = reader.nextDouble();
 
                     } else if (name.equals("longitude")) {
-                        longitude = Double.parseDouble(reader.nextString());
+                        longitude = reader.nextDouble();
                         reader.endObject();
                         break;
 
@@ -166,7 +167,7 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
                     outcome = "null";
                     reader.skipValue();
 
-                }else if (reader.peek() == JsonToken.BEGIN_OBJECT) {
+                } else if (reader.peek() == JsonToken.BEGIN_OBJECT) {
                     reader.beginObject();
                     while (reader.hasNext()) {
                         name = reader.nextName();
@@ -182,20 +183,22 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
                     outcome = reader.nextString();
                 }
 
+            } else if (name.equals("id")) {
+                id = reader.nextInt();
+
             } else if (name.equals("month")) {
                 String monthYear = reader.nextString();
                 year = Integer.parseInt(monthYear.substring(0,4));
                 month = Integer.parseInt(monthYear.substring(5,7));
 
-                Crime crime = new Crime(category, latitude, longitude, outcome, year, month, locationDesc);
+                Crime crime = new Crime(id, category, latitude, longitude, outcome, year, month, locationDesc);
                 crimes.add(crime);
 
+                id = 0;
                 category = "";
                 latitude = 0;
                 longitude = 0;
                 outcome = "";
-                year = 0;
-                month = 0;
                 locationDesc = "";
 
                 reader.endObject();

@@ -81,7 +81,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         requestPermissions();
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(13).build();
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(12).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         setUpClusterer();
@@ -131,8 +131,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         googleMap.setOnMarkerClickListener(clusterManager);
     }
 
-
-
     private void displayToast(Location location){
         Toast.makeText(getActivity().getApplicationContext(), Double.toString(location.getLatitude()) + Double.toString(location.getLongitude()), Toast.LENGTH_LONG).show();
     }
@@ -152,7 +150,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void configureClicked(){
-        ((MapsActivity)getActivity()).setViewPager(1);
+        ((MapsActivity)getActivity()).setViewPager(0);
     }
 
     @Override

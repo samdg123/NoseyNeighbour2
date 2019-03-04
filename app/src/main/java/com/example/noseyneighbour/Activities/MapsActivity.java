@@ -25,7 +25,7 @@ public class MapsActivity extends AppCompatActivity {
     private String crimeType = "all-crime";
     private int year = 2018;
     private int month = 8;
-    private float radius = 1;
+    private float radius = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +49,10 @@ public class MapsActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
-        mapViewFragment = new MapViewFragment();
         mapMenuFragment = new MapMenuFragment();
-        adapter.addFragment(mapViewFragment, "MapView");
+        mapViewFragment = new MapViewFragment();
         adapter.addFragment(mapMenuFragment, "MapMenu");
+        adapter.addFragment(mapViewFragment, "MapView");
         viewPager.setAdapter(adapter);
     }
 

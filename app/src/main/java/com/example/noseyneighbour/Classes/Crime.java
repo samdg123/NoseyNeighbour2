@@ -5,6 +5,7 @@ import com.google.maps.android.clustering.ClusterItem;
 
 public class Crime implements ClusterItem {
 
+    private int id;
     private int year;
     private int month;
     private LatLng position;
@@ -14,7 +15,8 @@ public class Crime implements ClusterItem {
 
 
     public Crime(){}
-    public Crime(String category, double latitude, double longitude, String outcomeStatus, int year, int month, String locationDesc){
+    public Crime(int id, String category, double latitude, double longitude, String outcomeStatus, int year, int month, String locationDesc){
+        this.id = id;
         this.category = category;
         position = new LatLng(latitude, longitude);
         this.outcomeStatus = outcomeStatus;
@@ -23,7 +25,9 @@ public class Crime implements ClusterItem {
         this.locationDesc = locationDesc;
     }
 
-
+    public int getId() {
+        return id;
+    }
     public String getCategory() {
         return category;
     }
@@ -53,6 +57,9 @@ public class Crime implements ClusterItem {
         return outcomeStatus;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setPosition(LatLng position) {
         this.position = position;
     }

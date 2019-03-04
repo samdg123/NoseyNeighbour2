@@ -127,6 +127,7 @@ public class DBHandler extends SQLiteOpenHelper {
             crimeValues.put(CRIME_COLUMN_OUTCOME, crime.getOutcomeStatus());
             crimeValues.put(CRIME_COLUMN_CATEGORY, crime.getCategory());
             crimeValues.put(CRIME_COLUMN_LOCATION_DESC, crime.getLocationDesc());
+            crimeValues.put(CRIME_COLUMN_ID, crime.getId());
 
             db.replace(CRIME_TABLE_NAME, null, crimeValues);
             Log.d("DBHandler", "crime added, year = " + crime.getYear() + ", month = " + crime.getMonth());
@@ -146,6 +147,7 @@ public class DBHandler extends SQLiteOpenHelper {
         crimeValues.put(CRIME_COLUMN_OUTCOME, crime.getOutcomeStatus());
         crimeValues.put(CRIME_COLUMN_CATEGORY, crime.getCategory());
         crimeValues.put(CRIME_COLUMN_LOCATION_DESC, crime.getLocationDesc());
+        crimeValues.put(CRIME_COLUMN_ID, crime.getId());
 
         SQLiteDatabase db = this.getWritableDatabase();
         //db.insert(CRIME_TABLE_NAME, null, crimeValues);
@@ -158,7 +160,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public ArrayList<Crime> getAllCrimes(){
         ArrayList<Crime> crimes = new ArrayList<Crime>();
 
-        String query = "SELECT  " + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY + ", " + CRIME_COLUMN_LOCATION_DESC +
+        String query = "SELECT  " + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY + ", " + CRIME_COLUMN_LOCATION_DESC + ", " + CRIME_COLUMN_ID +
                 " FROM " + CRIME_TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -172,14 +174,13 @@ public class DBHandler extends SQLiteOpenHelper {
             crime.setMonth(cursor.getInt(3));
             crime.setYear(cursor.getInt(4));
             crime.setLocationDesc(cursor.getString(6));
+            crime.setId(cursor.getInt(7));
 
             crimes.add(crime);
         }
 
         cursor.close();
         db.close();
-
-
 
         return crimes;
     }
@@ -197,7 +198,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private void createTables(SQLiteDatabase db){
         String query = "CREATE TABLE " + CRIME_TABLE_NAME + "( " +
-                CRIME_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CRIME_COLUMN_ID + " INTEGER PRIMARY KEY, " +
                 CRIME_COLUMN_LATITUDE + " NUMERIC NOT NULL, " +
                 CRIME_COLUMN_LONGITUDE + " NUMERIC NOT NULL, " +
                 CRIME_COLUMN_OUTCOME + " TEXT, " +
@@ -205,7 +206,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 CRIME_COLUMN_YEAR + " INTEGER NOT NULL, " +
                 CRIME_COLUMN_CATEGORY + " TEXT NOT NULL, " +
                 CRIME_COLUMN_LOCATION_DESC + " TEXT, " +
-                "UNIQUE (" + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY + ")" +
+                "UNIQUE (" + CRIME_COLUMN_ID + ")" +
                 ")";
         db.execSQL(query);
 
