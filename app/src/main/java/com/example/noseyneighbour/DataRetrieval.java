@@ -153,9 +153,26 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
                 }
 
             } else if (name.equals("outcome_status")) {
-                if (reader.peek() == JsonToken.NULL){
+                if (reader.peek() == JsonToken.NULL) {
                     outcome = "null";
                     reader.skipValue();
+
+                }else if (reader.peek() == JsonToken.BEGIN_OBJECT) {
+                    reader.beginObject();
+                    while (reader.hasNext()) {
+                        name = reader.nextName();
+                        if (name.equals("category")) {
+                            outcome = reader.nextString();
+
+                        } else if (reader.peek() == JsonToken.END_OBJECT) {
+                            reader.endObject();
+                            break;
+
+                        } else {
+                            reader.skipValue();
+                        }
+                    }
+
                 } else {
                     outcome = reader.nextString();
                 }
