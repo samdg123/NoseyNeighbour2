@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.noseyneighbour.Classes.Crime;
-import com.example.noseyneighbour.DataRetrival;
 import com.example.noseyneighbour.Fragments.MapViewFragment;
 import com.example.noseyneighbour.Fragments.MapMenuFragment;
 import com.example.noseyneighbour.R;

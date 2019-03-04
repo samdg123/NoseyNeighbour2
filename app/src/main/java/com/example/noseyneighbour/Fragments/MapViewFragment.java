@@ -3,13 +3,11 @@ package com.example.noseyneighbour.Fragments;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Activities.MapsActivity;
-import com.example.noseyneighbour.DataRetrival;
+import com.example.noseyneighbour.DataRetrieval;
 import com.example.noseyneighbour.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -103,24 +101,24 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
         @Override
         public void onMyLocationClick(@NonNull Location location) {
             globalLocation = location;
-            DataRetrival dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrival.execute();
+            DataRetrieval dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrieval.execute();
 
 
-            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()-2, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrival.execute();
-            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()-1, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrival.execute();
-            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+1, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrival.execute();
-            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+2, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrival.execute();
-            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+3, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrival.execute();
-            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+4, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrival.execute();
-            dataRetrival = new DataRetrival(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+5, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrival.execute();
+            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()-2, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrieval.execute();
+            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()-1, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrieval.execute();
+            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+1, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrieval.execute();
+            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+2, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrieval.execute();
+            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+3, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrieval.execute();
+            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+4, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrieval.execute();
+            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+5, ((MapsActivity)getActivity()).getRadius(), location, getContext());
+            dataRetrieval.execute();
 
             displayToast(location);
 
