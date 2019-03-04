@@ -126,7 +126,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
 
     public void setClusterManagerItems(ArrayList<Crime> crimes) {
         clusterManager.clearItems();
-        this.clusterManager.addItems(crimes);
+        clusterManager.addItems(crimes);
+        clusterManager.cluster();
     }
     public void setNeedsRedraw(boolean needsRedraw) {
         this.needsRedraw = needsRedraw;

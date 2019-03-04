@@ -24,8 +24,8 @@ public class MapsActivity extends AppCompatActivity {
 
     private String crimeType = "all-crime";
     private int year = 2018;
-    private int month = 6;
-    private float radius = 10;
+    private int month = 8;
+    private float radius = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -112,6 +112,26 @@ public class DBHandler extends SQLiteOpenHelper {
         return cursor.getInt(0);
     }
 
+    public void addCrimes(ArrayList<Crime> crimes) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        for (Crime crime : crimes) {
+            ContentValues crimeValues = new ContentValues();
+
+            crimeValues.put(CRIME_COLUMN_LATITUDE, crime.getPosition().latitude);
+            crimeValues.put(CRIME_COLUMN_LONGITUDE, crime.getPosition().longitude);
+            crimeValues.put(CRIME_COLUMN_MONTH, crime.getMonth());
+            crimeValues.put(CRIME_COLUMN_YEAR, crime.getYear());
+            crimeValues.put(CRIME_COLUMN_OUTCOME, crime.getOutcomeStatus());
+            crimeValues.put(CRIME_COLUMN_CATEGORY, crime.getCategory());
+
+            db.replace(CRIME_TABLE_NAME, null, crimeValues);
+            Log.d("DBHandler", "crime added, year = " + crime.getYear() + ", month = " + crime.getMonth());
+        }
+
+        db.close();
+    }
+
     public void addCrime(Crime crime){
         ContentValues crimeValues = new ContentValues();
 

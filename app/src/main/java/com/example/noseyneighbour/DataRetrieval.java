@@ -13,34 +13,30 @@ import com.example.noseyneighbour.Handlers.DBHandler;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.SphericalUtil;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class DataRetrieval extends AsyncTask<Void, Void, String> {
 
-    private ArrayList<Crime> crimes;
+    ArrayList<Crime> crimes;
 
-    StringBuilder stringBuilder;
-    LatLng latLng1;
-    LatLng latLng2;
-    LatLng latLng3;
-    LatLng latLng4;
+    LatLng northEast;
+    LatLng southEast;
+    LatLng southWest;
+    LatLng northWest;
 
     private GoogleMap googleMap;
     private String crimeType;
     private int year;
     private int month;
     private float radius;
-    private Location globalLocation;
+    private LatLng currentLatLng;
     private Context context;
 
     public DataRetrieval(GoogleMap googleMap, String crimeType, int year, int month, float radius, Location globalLocation, Context context) {
@@ -49,28 +45,30 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
         this.year = year;
         this.month = month;
         this.radius = radius;
-        this.globalLocation = globalLocation;
         this.context = context;
+        currentLatLng = new LatLng(globalLocation.getLatitude(), globalLocation.getLongitude());
     }
 
     @Override
     protected String doInBackground(Void... voids) {
-        double latInc = 0.014263;
-        double longInc = 0.022634;
+        ArrayList<LatLng> corners = getLatLngCorners(currentLatLng, radius);
 
         String date = year + "-" + month;
 
-        latLng1 = createRectangle(latInc, longInc).get(0);
-        latLng2 = createRectangle(latInc, longInc).get(1);
-        latLng3 = createRectangle(latInc, longInc).get(2);
-        latLng4 = createRectangle(latInc, longInc).get(3);
+        northEast = corners.get(0);
+        southEast = corners.get(1);
+        southWest = corners.get(2);
+        northWest = corners.get(3);
 
         try {
-            Log.d("url", "https://data.police.uk/api/crimes-street/" + crimeType + "?poly=" + latLng1.latitude + "," + latLng1.longitude + ":" + latLng2.latitude + "," + latLng2.longitude + ":" + latLng3.latitude + "," + latLng3.longitude + ":" + latLng4.latitude + "," + latLng4.longitude + "&date=" + date);
-            URL url = new URL("https://data.police.uk/api/crimes-street/" + crimeType + "?poly=" + latLng1.latitude + "," + latLng1.longitude + ":" + latLng2.latitude + "," + latLng2.longitude + ":" + latLng3.latitude + "," + latLng3.longitude + ":" + latLng4.latitude + "," + latLng4.longitude + "&date=" + date);
+            Log.d("url", "https://data.police.uk/api/crimes-street/" + crimeType + "?poly=" + northEast.latitude + "," + northEast.longitude + ":" + southEast.latitude + "," + southEast.longitude + ":" + southWest.latitude + "," + southWest.longitude + ":" + northWest.latitude + "," + northWest.longitude + "&date=" + date);
+            URL url = new URL("https://data.police.uk/api/crimes-street/" + crimeType + "?poly=" + northEast.latitude + "," + northEast.longitude + ":" + southEast.latitude + "," + southEast.longitude + ":" + southWest.latitude + "," + southWest.longitude + ":" + northWest.latitude + "," + northWest.longitude + "&date=" + date);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-            parseJSON(urlConnection.getInputStream());
+            crimes = parseJSON( urlConnection.getInputStream() );
+
+            DBHandler dbHandler = new DBHandler(context);
+            dbHandler.addCrimes(crimes);
 
             urlConnection.disconnect();
 
@@ -88,23 +86,31 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String response) {
         ((MapsActivity)context).getMapViewFragment().setClusterManagerItems(crimes);
 
-        googleMap.addPolygon(new PolygonOptions().add(latLng1, latLng2, latLng3, latLng4));
+        googleMap.addPolygon(new PolygonOptions().add(northEast, southEast, southWest, northWest));
         Log.d("marker", "added polygon");
     }
 
-    private List<LatLng> createRectangle(double latInc, double longInc){
-        int multiplyer = Math.round(radius/2);
-        latInc *= multiplyer;
-        longInc *= multiplyer;
+    private ArrayList<LatLng> getLatLngCorners(LatLng center, double radiusMiles){
+        ArrayList<LatLng> corners = new ArrayList<>();
 
-        return Arrays.asList(new LatLng(globalLocation.getLatitude() - latInc, globalLocation.getLongitude() - longInc),
-                new LatLng(globalLocation.getLatitude() + latInc, globalLocation.getLongitude() - longInc),
-                new LatLng(globalLocation.getLatitude() + latInc, globalLocation.getLongitude() + longInc),
-                new LatLng(globalLocation.getLatitude() - latInc, globalLocation.getLongitude() + longInc));
+        //needed as the radius to corner will be bigger than middle of an edge. it is also represented in meters
+        double radiusToCorner = (radiusMiles*1609) * Math.sqrt(2);
+
+        LatLng northEast = SphericalUtil.computeOffset(center, radiusToCorner, 45);
+        LatLng southEast = SphericalUtil.computeOffset(center, radiusToCorner, 135);
+        LatLng southWest = SphericalUtil.computeOffset(center, radiusToCorner, 225);
+        LatLng northWest = SphericalUtil.computeOffset(center, radiusToCorner, 315);
+
+        corners.add(northEast);
+        corners.add(southEast);
+        corners.add(southWest);
+        corners.add(northWest);
+
+        return corners;
     }
 
-    private void parseJSON(InputStream inputStream) throws IOException {
-        crimes = new ArrayList<>();
+    private ArrayList<Crime> parseJSON(InputStream inputStream) throws IOException {
+        ArrayList<Crime> crimes = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream));
 
         reader.beginArray();
@@ -164,15 +170,11 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
                     reader.beginObject();
                     while (reader.hasNext()) {
                         name = reader.nextName();
-                        if (name.equals("category")) {
-                            outcome = reader.nextString();
-
-                        } else if (reader.peek() == JsonToken.END_OBJECT) {
+                        if (name.equals("category")) outcome = reader.nextString();
+                        else {
+                            reader.skipValue();
                             reader.endObject();
                             break;
-
-                        } else {
-                            reader.skipValue();
                         }
                     }
 
@@ -187,7 +189,6 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
 
                 Crime crime = new Crime(category, latitude, longitude, outcome, year, month);
                 crimes.add(crime);
-                addCrimeToDB(crime);
 
                 category = "";
                 latitude = 0;
@@ -207,7 +208,10 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
             }
         }
         reader.close();
+
+        return crimes;
     }
+
 
     private void addCrimeToDB(Crime crime){
         DBHandler dbHandler = new DBHandler(context);
