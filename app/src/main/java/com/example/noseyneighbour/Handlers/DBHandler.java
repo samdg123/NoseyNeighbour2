@@ -34,7 +34,7 @@ public class DBHandler extends SQLiteOpenHelper {
     //private static final String CATEGORY_COLUMN_STRING = "String";
 
     private static final String FAVORITE_TABLE_NAME = "Favorite";
-    private static final String FAVORITE_COLUMN_CRIMEID = "CrimeID";
+    private static final String FAVORITE_COLUMN_CRIME_ID = "CrimeID";
 
     public int crimesTableSize(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -57,6 +57,7 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
         highest = cursor.getInt(0);
 
+        db.close();
         return highest;
     }
 
@@ -71,6 +72,7 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
         lowest = cursor.getInt(0);
 
+        db.close();
         return lowest;
     }
 
@@ -94,6 +96,7 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         Log.d("DBHandler", numCrimes.size() + " number of months");
+        db.close();
 
         return numCrimes;
     }
@@ -120,9 +123,11 @@ public class DBHandler extends SQLiteOpenHelper {
         crimeValues.put(CRIME_COLUMN_CATEGORY, crime.getCategory());
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(CRIME_TABLE_NAME, null, crimeValues);
+        //db.insert(CRIME_TABLE_NAME, null, crimeValues);
+        db.replace(CRIME_TABLE_NAME, null, crimeValues);
 
         Log.d("DBHandler", "crime added, year = " + crime.getYear() + ", month = " + crime.getMonth());
+        db.close();
     }
 
     public ArrayList<Crime> getAllCrimes(){
@@ -181,7 +186,7 @@ public class DBHandler extends SQLiteOpenHelper {
         //db.execSQL(query);
 
         query = "CREATE TABLE " + FAVORITE_TABLE_NAME + "( " +
-                FAVORITE_COLUMN_CRIMEID + " INTEGER NOT NULL UNIQUE, PRIMARY KEY ( " + FAVORITE_COLUMN_CRIMEID + " ))";
+                FAVORITE_COLUMN_CRIME_ID + " INTEGER NOT NULL UNIQUE, PRIMARY KEY ( " + FAVORITE_COLUMN_CRIME_ID + " ))";
         db.execSQL(query);
     }
 

@@ -23,7 +23,7 @@ public class MapsActivity extends AppCompatActivity {
     private Location location = null;
 
     private String crimeType = "all-crime";
-    private int year = 2017;
+    private int year = 2018;
     private int month = 6;
     private float radius = 10;
 

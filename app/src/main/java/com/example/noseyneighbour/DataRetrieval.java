@@ -72,12 +72,15 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
 
             parseJSON(urlConnection.getInputStream());
 
+            urlConnection.disconnect();
+
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("error", "ERROR in fetching");
+            Log.d("error", "ERROR in fetching... " + e.getMessage());
+
+        } finally {
         }
 
-        Log.d("error", "ERROR in fetching");
         return null;
     }
 
@@ -185,6 +188,14 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
                 Crime crime = new Crime(category, latitude, longitude, outcome, year, month);
                 crimes.add(crime);
                 addCrimeToDB(crime);
+
+                category = "";
+                latitude = 0;
+                longitude = 0;
+                outcome = "";
+                year = 0;
+                month = 0;
+                locationDesc = "";
 
                 reader.endObject();
                 if (reader.peek() == JsonToken.BEGIN_OBJECT) {

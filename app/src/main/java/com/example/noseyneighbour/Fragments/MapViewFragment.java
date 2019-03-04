@@ -104,22 +104,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback{
             DataRetrieval dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
             dataRetrieval.execute();
 
-
-            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()-2, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrieval.execute();
-            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()-1, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrieval.execute();
-            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+1, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrieval.execute();
-            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+2, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrieval.execute();
-            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+3, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrieval.execute();
-            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+4, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrieval.execute();
-            dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth()+5, ((MapsActivity)getActivity()).getRadius(), location, getContext());
-            dataRetrieval.execute();
-
             displayToast(location);
 
             ((MapsActivity)getActivity()).setLocation(location);
