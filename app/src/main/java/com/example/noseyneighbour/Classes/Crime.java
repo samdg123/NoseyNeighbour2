@@ -10,15 +10,17 @@ public class Crime implements ClusterItem {
     private LatLng position;
     private String category;
     private String outcomeStatus;
+    private String locationDesc;
 
 
     public Crime(){}
-    public Crime(String category, double latitude, double longitude, String outcomeStatus, int year, int month){
+    public Crime(String category, double latitude, double longitude, String outcomeStatus, int year, int month, String locationDesc){
         this.category = category;
         position = new LatLng(latitude, longitude);
         this.outcomeStatus = outcomeStatus;
         this.year = year;
         this.month = month;
+        this.locationDesc = locationDesc;
     }
 
 
@@ -33,6 +35,9 @@ public class Crime implements ClusterItem {
     }
     public int getMonth() {
         return month;
+    }
+    public String getLocationDesc() {
+        return locationDesc;
     }
 
     @Override
@@ -62,5 +67,8 @@ public class Crime implements ClusterItem {
     }
     public void setMonth(int month) {
         this.month = month;
+    }
+    public void setLocationDesc(String locationDesc) {
+        this.locationDesc = locationDesc;
     }
 }

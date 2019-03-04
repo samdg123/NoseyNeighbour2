@@ -28,6 +28,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String CRIME_COLUMN_MONTH = "Month";
     private static final String CRIME_COLUMN_YEAR = "Year";
     private static final String CRIME_COLUMN_CATEGORY = "Category";
+    private static final String CRIME_COLUMN_LOCATION_DESC = "LocationDesc";
 
     //private static final String CATEGORY_TABLE_NAME = "Category";
     //private static final String CATEGORY_COLUMN_ID = "ID";
@@ -125,6 +126,7 @@ public class DBHandler extends SQLiteOpenHelper {
             crimeValues.put(CRIME_COLUMN_YEAR, crime.getYear());
             crimeValues.put(CRIME_COLUMN_OUTCOME, crime.getOutcomeStatus());
             crimeValues.put(CRIME_COLUMN_CATEGORY, crime.getCategory());
+            crimeValues.put(CRIME_COLUMN_LOCATION_DESC, crime.getLocationDesc());
 
             db.replace(CRIME_TABLE_NAME, null, crimeValues);
             Log.d("DBHandler", "crime added, year = " + crime.getYear() + ", month = " + crime.getMonth());
@@ -143,6 +145,7 @@ public class DBHandler extends SQLiteOpenHelper {
         crimeValues.put(CRIME_COLUMN_YEAR, crime.getYear());
         crimeValues.put(CRIME_COLUMN_OUTCOME, crime.getOutcomeStatus());
         crimeValues.put(CRIME_COLUMN_CATEGORY, crime.getCategory());
+        crimeValues.put(CRIME_COLUMN_LOCATION_DESC, crime.getLocationDesc());
 
         SQLiteDatabase db = this.getWritableDatabase();
         //db.insert(CRIME_TABLE_NAME, null, crimeValues);
@@ -155,7 +158,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public ArrayList<Crime> getAllCrimes(){
         ArrayList<Crime> crimes = new ArrayList<Crime>();
 
-        String query = "SELECT  " + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY +
+        String query = "SELECT  " + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY + ", " + CRIME_COLUMN_LOCATION_DESC +
                 " FROM " + CRIME_TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -168,6 +171,7 @@ public class DBHandler extends SQLiteOpenHelper {
             crime.setCategory(cursor.getString(5));
             crime.setMonth(cursor.getInt(3));
             crime.setYear(cursor.getInt(4));
+            crime.setLocationDesc(cursor.getString(6));
 
             crimes.add(crime);
         }
@@ -200,6 +204,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 CRIME_COLUMN_MONTH + " INTEGER NOT NULL, " +
                 CRIME_COLUMN_YEAR + " INTEGER NOT NULL, " +
                 CRIME_COLUMN_CATEGORY + " TEXT NOT NULL, " +
+                CRIME_COLUMN_LOCATION_DESC + " TEXT, " +
                 "UNIQUE (" + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY + ")" +
                 ")";
         db.execSQL(query);

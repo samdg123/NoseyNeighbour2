@@ -20,10 +20,14 @@ import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Activities.MapsActivity;
 import com.example.noseyneighbour.DataRetrieval;
 import com.example.noseyneighbour.R;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
@@ -34,7 +38,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap googleMap;
     private ImageView configureBtn;
     private ClusterManager<Crime> clusterManager;
-    private Location globalLocation;
+    private Location location;
     private ArrayList<Crime> crimes;
 
     private boolean needsRedraw = false;
@@ -76,6 +80,10 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
         requestPermissions();
 
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(13).build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
         setUpClusterer();
     }
 
@@ -89,7 +97,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             String provider = locationManager.getBestProvider(criteria, false);
 
-            globalLocation = locationManager.getLastKnownLocation(provider);
+            location = locationManager.getLastKnownLocation(provider);
 
             setMarkers();
 
@@ -108,12 +116,12 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
     public void setMarkers(){
         googleMap.clear();
-        DataRetrieval dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), globalLocation, getContext());
+        DataRetrieval dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
         dataRetrieval.execute();
 
-        displayToast(globalLocation);
+        displayToast(location);
 
-        ((MapsActivity)getActivity()).setLocation(globalLocation);
+        ((MapsActivity)getActivity()).setLocation(location);
     }
 
     private void setUpClusterer(){

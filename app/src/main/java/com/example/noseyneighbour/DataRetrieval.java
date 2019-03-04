@@ -187,7 +187,7 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
                 year = Integer.parseInt(monthYear.substring(0,4));
                 month = Integer.parseInt(monthYear.substring(5,7));
 
-                Crime crime = new Crime(category, latitude, longitude, outcome, year, month);
+                Crime crime = new Crime(category, latitude, longitude, outcome, year, month, locationDesc);
                 crimes.add(crime);
 
                 category = "";

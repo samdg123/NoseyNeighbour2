@@ -42,6 +42,7 @@ public class CrimesRVAdapter extends RecyclerView.Adapter<CrimesRVAdapter.CrimeV
         crimeViewHolder.setCategoryText(crime.getCategory());
         crimeViewHolder.setDateText("Date: " + crime.getMonth() + "-" + crime.getYear());
         crimeViewHolder.setLocationText("Location: " + latitude + ", " + longitude);
+        crimeViewHolder.setLocationDescText(crime.getLocationDesc());
         crimeViewHolder.setOutcomeText(crime.getOutcomeStatus());
     }
 
@@ -55,6 +56,7 @@ public class CrimesRVAdapter extends RecyclerView.Adapter<CrimesRVAdapter.CrimeV
         private TextView categoryTV;
         private TextView outcomeTV;
         private TextView locationTV;
+        private TextView locationDescTV;
         private TextView dateTV;
 
         public CrimeViewHolder(@NonNull View itemView) {
@@ -66,10 +68,13 @@ public class CrimesRVAdapter extends RecyclerView.Adapter<CrimesRVAdapter.CrimeV
             categoryTV = itemView.findViewById(R.id.categoryTV);
             outcomeTV = itemView.findViewById(R.id.outcomeStatusTV);
             locationTV = itemView.findViewById(R.id.locationTV);
+            locationDescTV = itemView.findViewById(R.id.locationDescTV);
             dateTV = itemView.findViewById(R.id.dateTV);
         }
 
         public void setCategoryText(String text) {
+            text = text.replace('-', ' ');
+            text = text.substring(0,1).toUpperCase() + text.substring(1);
             categoryTV.setText(text);
         }
         public void setDateText(String text) {
@@ -77,6 +82,9 @@ public class CrimesRVAdapter extends RecyclerView.Adapter<CrimesRVAdapter.CrimeV
         }
         public void setLocationText(String text) {
             locationTV.setText(text);
+        }
+        public void setLocationDescText(String text) {
+            locationDescTV.setText(text);
         }
         public void setOutcomeText(String text) {
             outcomeTV.setText(text);
