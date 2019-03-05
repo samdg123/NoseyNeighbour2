@@ -65,8 +65,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
 
-        mMapView.onResume(); // needed to get the map to display immediately
-
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
@@ -99,8 +97,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
             location = locationManager.getLastKnownLocation(provider);
 
-            setMarkers();
-
             googleMap.setMyLocationEnabled(true);
             googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
                 @Override
@@ -116,12 +112,11 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
     public void setMarkers(){
         googleMap.clear();
-        DataRetrieval dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
-        dataRetrieval.execute();
-
-        displayToast(location);
 
         ((MapsActivity)getActivity()).setLocation(location);
+
+        DataRetrieval dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
+        dataRetrieval.execute();
     }
 
     private void setUpClusterer(){
@@ -138,8 +133,14 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
     public void setClusterManagerItems(ArrayList<Crime> crimes) {
         clusterManager.clearItems();
-        clusterManager.addItems(crimes);
-        clusterManager.cluster();
+
+        if (crimes != null) {
+            clusterManager.addItems(crimes);
+            clusterManager.cluster();
+        } else {
+            Toast.makeText(getContext(), "No crimes found", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     public GoogleMap getGoogleMap() {
