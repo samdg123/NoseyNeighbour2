@@ -20,7 +20,6 @@ import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Activities.MapsActivity;
 import com.example.noseyneighbour.DataRetrieval;
 import com.example.noseyneighbour.R;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -39,13 +38,11 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     private ImageView configureBtn;
     private ClusterManager<Crime> clusterManager;
     private Location location;
-    private ArrayList<Crime> crimes;
 
-    private boolean needsRedraw = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_map_view_current_loc, container, false);
 
         init(rootView, savedInstanceState);
 
@@ -137,6 +134,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         if (crimes != null) {
             clusterManager.addItems(crimes);
             clusterManager.cluster();
+            Toast.makeText(getContext(),  crimes.size() + " crimes found", Toast.LENGTH_LONG).show();
+
         } else {
             Toast.makeText(getContext(), "No crimes found", Toast.LENGTH_LONG).show();
         }

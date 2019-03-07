@@ -62,6 +62,7 @@ public class CrimeGraph extends View {
         float y;
         float prevX = 0;
         float prevY = 0;
+        int[] prevPoint = new int[3];
         final float pointRadius = 16;
 
         for(int[] point : numCrimesList){
@@ -69,60 +70,88 @@ public class CrimeGraph extends View {
             y = canvas.getHeight()-calcPointY(point);
 
             if(prevX != 0 && prevY != 0) {
-                connectPoints(x, y, prevX, prevY, canvas);
+                int[] rgb = calculateLineColour(point, prevPoint);
+                connectPoints(rgb, x, y, prevX, prevY, canvas);
+
+                if (numCrimesList.size()-1 == numCrimesList.lastIndexOf(point)){
+                    canvas.drawCircle(x, y, pointRadius, paint);
+                    drawTextOnPoint(point, x, y, canvas);
+                }
+
                 canvas.drawCircle(prevX, prevY, pointRadius, paint);
-                canvas.drawCircle(x, y, pointRadius, paint);
-                //canvas.drawPoint(prevX, prevY, paint);
-                //canvas.drawPoint(x, y, paint);
+                drawTextOnPoint(prevPoint, prevX, prevY, canvas);
+
             } else {
                 canvas.drawCircle(x, y, pointRadius, paint);
             }
 
+            prevPoint = point;
             prevX = x;
             prevY = y;
         }
     }
 
-    private void connectPoints(float x, float y, float prevX, float prevY, Canvas canvas){
+    private void drawTextOnPoint(int[] point, float x, float y, Canvas canvas){
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(40);
+
+        x -= 60;
+        y += 70;
+
+        canvas.drawText(point[2] + "-" + point[1], x, y, paint);
+
+        y -= 120;
+        x += 20;
+
+        canvas.drawText(Integer.toString(point[0]), x, y, paint);
+
+    }
+
+    private void connectPoints(int[] rgb, float x, float y, float prevX, float prevY, Canvas canvas){
         Paint paint = new Paint();
         paint.setStrokeWidth(16);
         paint.setColor(Color.BLUE);
-
-        int [] rgb = calculateLineColour(x, y, prevX, prevY);
 
         paint.setColor(Color.rgb(rgb[0], rgb[1], rgb[2]));
 
         canvas.drawLine(prevX, prevY, x, y, paint);
     }
 
-    private int[] calculateLineColour(float x, float y, float prevX, float prevY){
+    private int[] calculateLineColour(int[] point, int[] prevPoint){
+        int monthsSinceStart = ((point[1] * 12) + point[2]) - xStartValue;
+        int prevMonthSinceStart = ((prevPoint[1] * 12) + prevPoint[2]) - xStartValue;
+
         //int[0] = red, int[1] = green, int[2] = blue
         int[] rgb = new int[3];
 
-        float gradient = ((y-prevY)/(x-prevX))/2;
+        float gradient = ((point[0]-prevPoint[0])/(monthsSinceStart-prevMonthSinceStart))*3;
 
         if (gradient > 0) {
-            rgb[1] = Math.round(gradient*150);
-            if (rgb[1] > 255) {
-                rgb[1] = 255;
-            }
-
-            //lightening the colour up
-            rgb[0] = (255-rgb[1])/2;
-            rgb[2] = (255-rgb[1])/2;
-        }
-
-        if (gradient < 0) {
-            rgb[0] = Math.round(0-(gradient*150));
+            //redness
+            rgb[0] = Math.round(gradient);
             if (rgb[0] > 255) {
                 rgb[0] = 255;
             }
 
             //lightening the colour up
-            rgb[1] = (255-rgb[0])/2;
-            rgb[2] = (255-rgb[0])/2;
+            rgb[1] = 50;
+            //rgb[2] = (255-rgb[0])/2;
         }
 
+        if (gradient < 0) {
+            //green-ness
+            rgb[1] = Math.round(0-(gradient));
+            if (rgb[1] > 255) {
+                rgb[1] = 255;
+            }
+
+            //lightening the colour up
+            rgb[0] = 50;
+            //rgb[2] = (255-rgb[1])/2;
+        }
+
+        rgb[2] = 50;
         return rgb;
     }
 

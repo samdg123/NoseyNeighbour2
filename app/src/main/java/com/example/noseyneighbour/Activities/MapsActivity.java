@@ -20,6 +20,7 @@ public class MapsActivity extends AppCompatActivity {
     private MapViewFragment mapViewFragment;
     private MapMenuFragment mapMenuFragment;
     private ArrayList<Crime> crimes;
+    private boolean currentLoc;
     private Location location = null;
 
     private String crimeType = "all-crime";
@@ -30,9 +31,15 @@ public class MapsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentLoc = getIntent().getBooleanExtra("currentLoc", false);
+
+        if (currentLoc) {
+
+        } else {
+
+        }
+
         setContentView(R.layout.activity_maps);
-
-
         viewPager = findViewById(R.id.viewPager);
 
         setupViewPager(viewPager);
