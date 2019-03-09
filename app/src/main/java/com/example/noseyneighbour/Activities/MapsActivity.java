@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.noseyneighbour.Classes.Crime;
-import com.example.noseyneighbour.Fragments.MapViewFragment;
+import com.example.noseyneighbour.Fragments.CurrentLocMapsFragment;
 import com.example.noseyneighbour.Fragments.MapMenuFragment;
 import com.example.noseyneighbour.R;
 import com.example.noseyneighbour.Adapters.SectionsStatePagerAdapter;
@@ -17,7 +17,7 @@ public class MapsActivity extends AppCompatActivity {
 
     private SectionsStatePagerAdapter adapter;
     private ViewPager viewPager;
-    private MapViewFragment mapViewFragment;
+    private CurrentLocMapsFragment currentLocMapsFragment;
     private MapMenuFragment mapMenuFragment;
     private ArrayList<Crime> crimes;
     private boolean currentLoc;
@@ -57,9 +57,9 @@ public class MapsActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager){
         adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
         mapMenuFragment = new MapMenuFragment();
-        mapViewFragment = new MapViewFragment();
+        currentLocMapsFragment = new CurrentLocMapsFragment();
         adapter.addFragment(mapMenuFragment, "MapMenu");
-        adapter.addFragment(mapViewFragment, "MapView");
+        adapter.addFragment(currentLocMapsFragment, "MapView");
         viewPager.setAdapter(adapter);
     }
 
@@ -85,8 +85,8 @@ public class MapsActivity extends AppCompatActivity {
     public MapMenuFragment getMapMenuFragment() {
         return mapMenuFragment;
     }
-    public MapViewFragment getMapViewFragment() {
-        return mapViewFragment;
+    public CurrentLocMapsFragment getCurrentLocMapsFragment() {
+        return currentLocMapsFragment;
     }
 
     public void setYear(int year) {

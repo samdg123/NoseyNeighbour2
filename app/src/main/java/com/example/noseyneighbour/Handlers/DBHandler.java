@@ -37,6 +37,90 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String FAVORITE_TABLE_NAME = "Favorite";
     private static final String FAVORITE_COLUMN_CRIME_ID = "CrimeID";
 
+    public ArrayList<Crime> getSavedCrimes(){
+        ArrayList<Crime> crimes = new ArrayList<>();
+
+        String query = "SELECT  " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_LATITUDE + ", " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_LONGITUDE + ", " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_OUTCOME + ", " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_MONTH + ", " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_YEAR + ", " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_CATEGORY + ", " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_LOCATION_DESC + ", " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_ID +
+                " FROM " + FAVORITE_TABLE_NAME + ", " + CRIME_TABLE_NAME +
+                " WHERE " + FAVORITE_TABLE_NAME + "." + FAVORITE_COLUMN_CRIME_ID + " = " + CRIME_TABLE_NAME + "." + CRIME_COLUMN_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()){
+            Crime crime = new Crime();
+
+            crime.setPosition(new LatLng(cursor.getFloat(0), cursor.getFloat(1)));
+            crime.setOutcomeStatus(cursor.getString(2));
+            crime.setCategory(cursor.getString(5));
+            crime.setMonth(cursor.getInt(3));
+            crime.setYear(cursor.getInt(4));
+            crime.setLocationDesc(cursor.getString(6));
+            crime.setId(cursor.getInt(7));
+
+            crimes.add(crime);
+        }
+
+        cursor.close();
+        db.close();
+
+        return crimes;
+    }
+
+    public void removeSavedCrime(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(FAVORITE_TABLE_NAME, FAVORITE_COLUMN_CRIME_ID + " = " + id, null);
+        db.close();
+    }
+
+    public void addSavedCrime(int id){
+        ContentValues crimeCV = new ContentValues();
+        crimeCV.put(FAVORITE_COLUMN_CRIME_ID, id);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(FAVORITE_TABLE_NAME, null, crimeCV);
+
+        db.close();
+    }
+
+    public Crime getCrime(int id){
+        String query = "SELECT  " + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY + ", " + CRIME_COLUMN_LOCATION_DESC + ", " + CRIME_COLUMN_ID +
+                " FROM " + CRIME_TABLE_NAME +
+                " WHERE " + CRIME_COLUMN_ID + " = " + id;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        Crime crime = new Crime();
+
+        crime.setPosition(new LatLng(cursor.getFloat(0), cursor.getFloat(1)));
+        crime.setOutcomeStatus(cursor.getString(2));
+        crime.setCategory(cursor.getString(5));
+        crime.setMonth(cursor.getInt(3));
+        crime.setYear(cursor.getInt(4));
+        crime.setLocationDesc(cursor.getString(6));
+        crime.setId(cursor.getInt(7));
+
+        return crime;
+    }
+
+    public Boolean isCrimeSaved(int id) {
+        Boolean saved = false;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + FAVORITE_COLUMN_CRIME_ID + " FROM " + FAVORITE_TABLE_NAME +
+                " WHERE " + FAVORITE_COLUMN_CRIME_ID + " = " + id;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.getCount() > 0) {
+            saved = true;
+        }
+
+        cursor.close();
+        db.close();
+
+        return saved;
+    }
+
     public int crimesTableSize(){
         SQLiteDatabase db = this.getReadableDatabase();
 

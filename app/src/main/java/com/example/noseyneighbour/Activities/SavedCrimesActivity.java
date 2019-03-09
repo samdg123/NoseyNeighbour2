@@ -22,7 +22,7 @@ public class SavedCrimesActivity extends AppCompatActivity {
         ArrayList<Crime> crimes;
 
         DBHandler dbHandler = new DBHandler(this);
-        crimes = dbHandler.getAllCrimes();
+        crimes = dbHandler.getSavedCrimes();
 
         numCrimesTV = findViewById(R.id.numCrimesTV);
         numCrimesTV.setText(crimes.size() + " crimes saved");

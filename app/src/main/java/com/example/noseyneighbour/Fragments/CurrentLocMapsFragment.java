@@ -2,6 +2,7 @@ package com.example.noseyneighbour.Fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -20,6 +21,7 @@ import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Activities.MapsActivity;
 import com.example.noseyneighbour.DataRetrieval;
 import com.example.noseyneighbour.R;
+import com.example.noseyneighbour.Adapters.MapsInfoWindow;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -27,18 +29,18 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
 
-public class MapViewFragment extends Fragment implements OnMapReadyCallback {
+public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallback {
 
     MapView mMapView;
     private GoogleMap googleMap;
     private ImageView configureBtn;
     private ClusterManager<Crime> clusterManager;
     private Location location;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        mMapView = (MapView) rootView.findViewById(R.id.mapView);
+        mMapView = rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
 
@@ -104,7 +106,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
             });
         } else {
         }
-
     }
 
     public void setMarkers(){
@@ -117,7 +118,14 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void setUpClusterer(){
+        googleMap.setInfoWindowAdapter(new MapsInfoWindow(getContext()));
         clusterManager = new ClusterManager<>(getContext(), googleMap);
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Crime.addToSavedCrimes(getContext(), Integer.parseInt(marker.getTitle()));
+            }
+        });
 
         googleMap.setOnCameraIdleListener(clusterManager);
         googleMap.setOnMarkerClickListener(clusterManager);

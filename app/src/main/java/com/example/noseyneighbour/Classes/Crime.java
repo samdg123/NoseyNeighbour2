@@ -1,5 +1,8 @@
 package com.example.noseyneighbour.Classes;
 
+import android.content.Context;
+
+import com.example.noseyneighbour.Handlers.DBHandler;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
@@ -23,6 +26,11 @@ public class Crime implements ClusterItem {
         this.year = year;
         this.month = month;
         this.locationDesc = locationDesc;
+    }
+
+    public static void addToSavedCrimes(Context context, int id){
+        DBHandler dbHandler = new DBHandler(context);
+        dbHandler.addSavedCrime(id);
     }
 
     public int getId() {
@@ -50,7 +58,7 @@ public class Crime implements ClusterItem {
     }
     @Override
     public String getTitle() {
-        return category;
+        return Integer.toString(id);
     }
     @Override
     public String getSnippet() {

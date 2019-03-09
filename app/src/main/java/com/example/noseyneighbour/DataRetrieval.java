@@ -84,7 +84,7 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String response) {
-        ((MapsActivity)context).getMapViewFragment().setClusterManagerItems(crimes);
+        ((MapsActivity)context).getCurrentLocMapsFragment().setClusterManagerItems(crimes);
 
         googleMap.addPolygon(new PolygonOptions().add(northEast, southEast, southWest, northWest));
         Log.d("marker", "added polygon");
