@@ -30,6 +30,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 
@@ -139,7 +140,12 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     private void setUpClusterer(){
         googleMap.setInfoWindowAdapter(new MapsInfoWindow(getContext()));
         clusterManager = new ClusterManager<>(getContext(), googleMap);
-        clusterManager.setOnClusterItemClickListener(new MarkerOnClickListener());
+        clusterManager.setOnClusterClickListener(new ClusterManager.OnClusterClickListener<Crime>() {
+            @Override
+            public boolean onClusterClick(Cluster<Crime> cluster) {
+                return true;
+            }
+        });
         clusterManager.setRenderer(new CrimeClusterRenderer(getContext(), googleMap, clusterManager));
 
         googleMap.setOnCameraIdleListener(clusterManager);

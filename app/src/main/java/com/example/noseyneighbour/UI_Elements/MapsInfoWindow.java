@@ -32,6 +32,7 @@ public class MapsInfoWindow implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(Marker marker) {
+
         id = Integer.parseInt(marker.getTitle());
         getCrime();
 
