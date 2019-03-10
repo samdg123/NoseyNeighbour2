@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.example.noseyneighbour.Adapters.CrimesRVAdapter;
+import com.example.noseyneighbour.Adapters.SavedCrimesRVAdapter;
 import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
@@ -33,7 +33,7 @@ public class SavedCrimesActivity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-        CrimesRVAdapter crimesAdapter = new CrimesRVAdapter(crimes);
+        SavedCrimesRVAdapter crimesAdapter = new SavedCrimesRVAdapter(crimes);
         recyclerView.setAdapter(crimesAdapter);
     }
 

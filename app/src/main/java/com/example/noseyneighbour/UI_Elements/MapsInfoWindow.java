@@ -1,4 +1,4 @@
-package com.example.noseyneighbour.Adapters;
+package com.example.noseyneighbour.UI_Elements;
 
 import android.content.Context;
 import android.view.View;

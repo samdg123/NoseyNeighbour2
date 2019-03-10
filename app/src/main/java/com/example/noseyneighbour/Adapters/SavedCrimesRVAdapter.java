@@ -1,6 +1,5 @@
 package com.example.noseyneighbour.Adapters;
 
-import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,11 +14,11 @@ import com.google.android.gms.maps.model.LatLng;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class CrimesRVAdapter extends RecyclerView.Adapter<CrimesRVAdapter.CrimeViewHolder> {
+public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdapter.CrimeViewHolder> {
 
     private ArrayList<Crime> crimes;
 
-    public CrimesRVAdapter(ArrayList<Crime> crimes) {
+    public SavedCrimesRVAdapter(ArrayList<Crime> crimes) {
         this.crimes = crimes;
     }
 

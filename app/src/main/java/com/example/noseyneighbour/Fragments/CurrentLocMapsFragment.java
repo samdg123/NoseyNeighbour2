@@ -2,7 +2,6 @@ package com.example.noseyneighbour.Fragments;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -23,7 +22,7 @@ import com.example.noseyneighbour.CrimeClusterRenderer;
 import com.example.noseyneighbour.DataRetrieval;
 import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
-import com.example.noseyneighbour.Adapters.MapsInfoWindow;
+import com.example.noseyneighbour.UI_Elements.MapsInfoWindow;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -31,7 +30,6 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 

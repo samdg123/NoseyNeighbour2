@@ -7,37 +7,53 @@
     tools:context=".Activities.MainActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/villageIV"
+        android:layout_width="0dp"
+        android:layout_height="392dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="cursive"
-        android:text="Nosey Neighbour"
-        android:textAlignment="center"
-        android:textSize="88sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:srcCompat="@drawable/ic_village" />
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:lineSpacingExtra="120sp"
+        android:shadowColor="@android:color/white"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:text="Nosey       Neighbour"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@android:color/black"
+        android:textColorHighlight="@android:color/white"
+        android:textSize="64sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/villageIV"
+        app:layout_constraintEnd_toEndOf="@+id/villageIV"
+        app:layout_constraintStart_toStartOf="@+id/villageIV"
+        app:layout_constraintTop_toTopOf="@+id/villageIV" />
 
     <Button
         android:id="@+id/currentLocBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:enabled="false"
-        android:text="Use Current Location"
+        android:text="Current Location"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/villageIV" />
 
     <Button
         android:id="@+id/customLocBtn"
@@ -46,7 +62,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Use Custom Location"
+        android:text="Custom Location"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,4 +80,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customLocBtn" />
+
+    <ImageView
+        android:id="@+id/detectiveIV"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/villageIV"
+        app:layout_constraintEnd_toEndOf="@+id/villageIV"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/villageIV"
+        app:layout_constraintTop_toTopOf="@+id/villageIV"
+        app:srcCompat="@drawable/ic_detective" />
+
 </android.support.constraint.ConstraintLayout>
