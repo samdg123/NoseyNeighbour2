@@ -1,5 +1,9 @@
 package com.example.noseyneighbour.Adapters;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.noseyneighbour.Activities.SavedCrimesActivity;
 import com.example.noseyneighbour.Classes.Crime;
+import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -17,9 +23,13 @@ import java.util.ArrayList;
 public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdapter.CrimeViewHolder> {
 
     private ArrayList<Crime> crimes;
+    private Context context;
+    private SavedCrimesActivity activity;
 
-    public SavedCrimesRVAdapter(ArrayList<Crime> crimes) {
+
+    public SavedCrimesRVAdapter(ArrayList<Crime> crimes, SavedCrimesActivity activity) {
         this.crimes = crimes;
+        this.activity = activity;
     }
 
     @NonNull
@@ -30,8 +40,8 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CrimeViewHolder crimeViewHolder, int i) {
-        Crime crime = crimes.get(i);
+    public void onBindViewHolder(@NonNull final CrimeViewHolder crimeViewHolder, int i) {
+        final Crime crime = crimes.get(i);
 
         LatLng latLng = crime.getPosition();
         DecimalFormat decimalFormat = new DecimalFormat("#.00000");
@@ -43,6 +53,42 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
         crimeViewHolder.setLocationText("Location: " + latitude + ", " + longitude);
         crimeViewHolder.setLocationDescText(crime.getLocationDesc());
         crimeViewHolder.setOutcomeText(crime.getOutcomeStatus());
+
+        crimeViewHolder.itemView.setClickable(true);
+        crimeViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] options = {"Show on map", "Delete"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            showOnMap();
+                        } else {
+                            removeFromFavorites();
+                        }
+                    }
+
+                    private void removeFromFavorites(){
+                        DBHandler dbHandler = new DBHandler(context);
+                        dbHandler.removeSavedCrime(crime.getId());
+
+                        crimes.remove(crime);
+                        notifyDataSetChanged();
+                        activity.updateNumCrimes(crimes.size());
+                    }
+
+                    private void showOnMap(){
+
+                    }
+                });
+
+                builder.show();
+            }
+        });
     }
 
     @Override
@@ -69,6 +115,8 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
             locationTV = itemView.findViewById(R.id.locationTV);
             locationDescTV = itemView.findViewById(R.id.locationDescTV);
             dateTV = itemView.findViewById(R.id.dateTV);
+
+            context = itemView.getContext();
         }
 
         public void setCategoryText(String text) {

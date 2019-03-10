@@ -33,8 +33,12 @@ public class SavedCrimesActivity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-        SavedCrimesRVAdapter crimesAdapter = new SavedCrimesRVAdapter(crimes);
+        SavedCrimesRVAdapter crimesAdapter = new SavedCrimesRVAdapter(crimes, this);
         recyclerView.setAdapter(crimesAdapter);
+    }
+
+    public void updateNumCrimes(int num){
+        numCrimesTV.setText(num + " crimes saved");
     }
 
     @Override

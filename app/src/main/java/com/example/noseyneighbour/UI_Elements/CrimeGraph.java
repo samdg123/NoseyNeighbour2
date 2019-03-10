@@ -34,6 +34,7 @@ public class CrimeGraph extends View {
     private @ColorInt
     int backgroundColour;
     private Context context;
+    private int year = 2018;
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -214,9 +215,11 @@ public class CrimeGraph extends View {
         numCrimesList = new ArrayList<>();
         DBHandler dbHandler = new DBHandler(getContext());
 
-        numCrimesList = dbHandler.countCrimesForAllMonths();
-        yStartValue = dbHandler.countLowestCrimeMonth();
-        yRange = dbHandler.countHighestCrimeMonth() - yStartValue;
+        numCrimesList = dbHandler.countCrimesForMonthsInYear(year);
+        //yStartValue = dbHandler.countLowestCrimeMonth();
+        //yRange = dbHandler.countHighestCrimeMonth() - yStartValue + 1;
+        yStartValue = 1;
+        yRange = 12;
 
         for (int[] crime : numCrimesList) {
             Log.d("CrimeGraph", "number of crimes: " + crime[0] + ", year: " + crime[1] + ", month: " + crime[2]);
@@ -235,6 +238,13 @@ public class CrimeGraph extends View {
         super(context);
         init(context);
     }
+
+    public CrimeGraph(Context context, int year) {
+        super(context);
+        this.year = year;
+        init(context);
+    }
+
     public CrimeGraph(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
