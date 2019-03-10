@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Activities.MapsActivity;
+import com.example.noseyneighbour.CrimeClusterRenderer;
 import com.example.noseyneighbour.DataRetrieval;
 import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
@@ -141,7 +142,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         googleMap.setInfoWindowAdapter(new MapsInfoWindow(getContext()));
         clusterManager = new ClusterManager<>(getContext(), googleMap);
         clusterManager.setOnClusterItemClickListener(new MarkerOnClickListener());
-        clusterManager.m
+        clusterManager.setRenderer(new CrimeClusterRenderer(getContext(), googleMap, clusterManager));
 
         googleMap.setOnCameraIdleListener(clusterManager);
         googleMap.setOnMarkerClickListener(clusterManager);
