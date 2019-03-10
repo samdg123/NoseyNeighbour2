@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_village" />
+        app:srcCompat="@drawable/ic_fields" />
 
     <TextView
         android:id="@+id/titleTV"
@@ -34,19 +34,20 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@android:color/black"
         android:textColorHighlight="@android:color/white"
-        android:textSize="64sp"
+        android:textSize="70sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/villageIV"
         app:layout_constraintEnd_toEndOf="@+id/villageIV"
         app:layout_constraintStart_toStartOf="@+id/villageIV"
-        app:layout_constraintTop_toTopOf="@+id/villageIV" />
+        app:layout_constraintTop_toTopOf="@+id/villageIV"
+        app:layout_constraintVertical_bias="0.3" />
 
     <Button
         android:id="@+id/currentLocBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:enabled="false"
         android:text="Current Location"
@@ -60,7 +61,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Custom Location"
         android:textSize="18sp"
@@ -69,11 +70,25 @@
         app:layout_constraintTop_toBottomOf="@+id/currentLocBtn" />
 
     <Button
+        android:id="@+id/graphBtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Graph"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savedCrimesBtn" />
+
+    <Button
         android:id="@+id/savedCrimesBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="Saved Crimes"
         android:textSize="18sp"
@@ -91,6 +106,7 @@
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/villageIV"
         app:layout_constraintTop_toTopOf="@+id/villageIV"
+        app:layout_constraintVertical_bias="0.44"
         app:srcCompat="@drawable/ic_detective" />
 
 </android.support.constraint.ConstraintLayout>

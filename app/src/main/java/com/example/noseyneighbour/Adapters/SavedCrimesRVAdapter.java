@@ -38,7 +38,7 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
         String latitude = decimalFormat.format(latLng.latitude);
         String longitude = decimalFormat.format(latLng.longitude);
 
-        crimeViewHolder.setCategoryText(crime.getCategory());
+        crimeViewHolder.setCategoryText(crime.getFormattedCategory());
         crimeViewHolder.setDateText("Date: " + crime.getMonth() + "-" + crime.getYear());
         crimeViewHolder.setLocationText("Location: " + latitude + ", " + longitude);
         crimeViewHolder.setLocationDescText(crime.getLocationDesc());
@@ -72,8 +72,6 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
         }
 
         public void setCategoryText(String text) {
-            text = text.replace('-', ' ');
-            text = text.substring(0,1).toUpperCase() + text.substring(1);
             categoryTV.setText(text);
         }
         public void setDateText(String text) {

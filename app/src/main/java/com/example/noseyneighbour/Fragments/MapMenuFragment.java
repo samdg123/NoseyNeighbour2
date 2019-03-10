@@ -47,12 +47,6 @@ public class MapMenuFragment extends Fragment {
                 searchClicked();
             }
         });
-        graphBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                graphClicked();
-            }
-        });
 
         yearSpinner.setSelection(1);
         monthSpinner.setSelection(5);
@@ -72,9 +66,5 @@ public class MapMenuFragment extends Fragment {
         mapsActivity.getCurrentLocMapsFragment().setMarkers();
         mapsActivity.setViewPager(1);
     }
-    private void graphClicked() {
-        setCrimeSearchParameters();
-        Intent intent = new Intent(getContext(), GraphActivity.class);
-        startActivity(intent);
-    }
+
 }

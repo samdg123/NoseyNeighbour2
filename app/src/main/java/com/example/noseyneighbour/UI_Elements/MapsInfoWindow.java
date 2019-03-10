@@ -42,7 +42,7 @@ public class MapsInfoWindow implements GoogleMap.InfoWindowAdapter {
         TextView outcomeTV = view.findViewById(R.id.outcomeTV);
         TextView locDescTV = view.findViewById(R.id.locationDescTV);
 
-        categoryTV.setText(crime.getCategory());
+        categoryTV.setText(crime.getFormattedCategory());
         outcomeTV.setText(crime.getOutcomeStatus());
         locDescTV.setText(crime.getLocationDesc());
 

@@ -33,6 +33,12 @@ public class Crime implements ClusterItem {
         dbHandler.addSavedCrime(id);
     }
 
+    public String getFormattedCategory(){
+        String string;
+        string = category.replace('-', ' ');
+        string = string.substring(0,1).toUpperCase() + string.substring(1);
+        return string;
+    }
     public int getId() {
         return id;
     }

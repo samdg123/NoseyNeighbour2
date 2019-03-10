@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Button currentLocBtn;
     private Button customLocBtn;
     private Button savedCrimesBtn;
+    private Button graphBtn;
 
 
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         currentLocBtn = findViewById(R.id.currentLocBtn);
         customLocBtn = findViewById(R.id.customLocBtn);
         savedCrimesBtn = findViewById(R.id.savedCrimesBtn);
+        graphBtn = findViewById(R.id.graphBtn);
 
         currentLocBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 savedCrimesClicked();
+            }
+        });
+        graphBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                graphClicked();
             }
         });
 
@@ -87,6 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void savedCrimesClicked(){
         Intent intent = new Intent(this, SavedCrimesActivity.class);
+        startActivity(intent);
+    }
+
+    private void graphClicked() {
+        Intent intent = new Intent(this, GraphActivity.class);
         startActivity(intent);
     }
 }
