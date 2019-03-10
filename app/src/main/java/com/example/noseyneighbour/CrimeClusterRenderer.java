@@ -30,9 +30,42 @@ public class CrimeClusterRenderer extends DefaultClusterRenderer<Crime> {
     @Override
     protected void onBeforeClusterItemRendered(Crime item, MarkerOptions markerOptions) {
         super.onBeforeClusterItemRendered(item, markerOptions);
-        Drawable icon = context.getResources().getDrawable(R.drawable.ic_outline_person_pin_circle_24px, context.getTheme());
-        //icon.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
-        icon.setTint(Color.GREEN);
+
+        Drawable icon = context.getDrawable(R.drawable.ic_pin_red);
+
+        switch (item.getCategory()) {
+            //case "anti-social-behaviour":
+                //icon = context.getDrawable(R.drawable.ic_pin_red);
+                //break;
+            case "bicycle-theft":
+                icon = context.getDrawable(R.drawable.ic_pin_blue);
+                break;
+            case "burglary":
+                icon = context.getDrawable(R.drawable.ic_pin_cyan);
+                break;
+            case "criminal-damage-arson":
+                icon = context.getDrawable(R.drawable.ic_pin_dk_blue);
+                break;
+            case "drugs":
+                icon = context.getDrawable(R.drawable.ic_pin_dk_green);
+                break;
+            case "other-theft":
+                icon = context.getDrawable(R.drawable.ic_pin_dk_orange);
+                break;
+            case "possession-of-weapons":
+                icon = context.getDrawable(R.drawable.ic_pin_green);
+                break;
+            case "public-order":
+                icon = context.getDrawable(R.drawable.ic_pin_orange);
+                break;
+            case "robbery":
+                icon = context.getDrawable(R.drawable.ic_pin_violet);
+                break;
+            case "violent-crime":
+                icon = context.getDrawable(R.drawable.ic_pin_yellow);
+                break;
+        }
+
 
         IconGenerator iconGenerator = new IconGenerator(context);
         iconGenerator.setBackground(icon);
