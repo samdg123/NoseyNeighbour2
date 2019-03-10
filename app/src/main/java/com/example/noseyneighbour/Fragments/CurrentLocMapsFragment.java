@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Activities.MapsActivity;
 import com.example.noseyneighbour.DataRetrieval;
+import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
 import com.example.noseyneighbour.Adapters.MapsInfoWindow;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
@@ -39,8 +41,11 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     MapView mMapView;
     private GoogleMap googleMap;
     private ImageView configureBtn;
+    private ImageView saveIV;
     private ClusterManager<Crime> clusterManager;
     private Location location;
+    private boolean crimeSaved = false;
+    private Crime currentCrime;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +57,14 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     }
 
     private void init(View rootView, Bundle savedInstanceState) {
+        saveIV = rootView.findViewById(R.id.saveIV);
+        saveIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveClicked();
+            }
+        });
+
         configureBtn = rootView.findViewById(R.id.configureBtn);
         configureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +93,12 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(12).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                saveIV.setVisibility(View.INVISIBLE);
+            }
+        });
 
         setUpClusterer();
     }
@@ -109,6 +128,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     }
 
     public void setMarkers(){
+        saveIV.setVisibility(View.INVISIBLE);
         googleMap.clear();
 
         ((MapsActivity)getActivity()).setLocation(location);
@@ -120,16 +140,14 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     private void setUpClusterer(){
         googleMap.setInfoWindowAdapter(new MapsInfoWindow(getContext()));
         clusterManager = new ClusterManager<>(getContext(), googleMap);
-        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                Crime.addToSavedCrimes(getContext(), Integer.parseInt(marker.getTitle()));
-            }
-        });
+        clusterManager.setOnClusterItemClickListener(new MarkerOnClickListener());
+        clusterManager.m
 
         googleMap.setOnCameraIdleListener(clusterManager);
         googleMap.setOnMarkerClickListener(clusterManager);
     }
+
+
 
     private void displayToast(Location location){
         Toast.makeText(getActivity().getApplicationContext(), Double.toString(location.getLatitude()) + Double.toString(location.getLongitude()), Toast.LENGTH_LONG).show();
@@ -150,6 +168,29 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
 
     }
 
+    public class MarkerOnClickListener implements ClusterManager.OnClusterItemClickListener{
+
+        @Override
+        public boolean onClusterItemClick(ClusterItem clusterItem) {
+            saveIV.setVisibility(View.VISIBLE);
+
+            currentCrime = (Crime) clusterItem;
+            crimeSaved = isCrimeSaved(currentCrime);
+
+            if (crimeSaved) {
+                saveIV.setImageResource(android.R.drawable.star_big_on);
+            } else {
+                saveIV.setImageResource(android.R.drawable.star_big_off);
+            }
+            return false;
+        }
+
+        private boolean isCrimeSaved(Crime crime) {
+            DBHandler dbHandler = new DBHandler(getContext());
+            return dbHandler.isCrimeSaved(crime.getId());
+        }
+    }
+
     public GoogleMap getGoogleMap() {
         return googleMap;
     }
@@ -157,6 +198,18 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         return mMapView;
     }
 
+    private void saveClicked(){
+        DBHandler dbHandler = new DBHandler(getContext());
+
+        if (crimeSaved) {
+            dbHandler.removeSavedCrime(currentCrime.getId());
+            saveIV.setImageResource(android.R.drawable.star_big_off);
+
+        } else {
+            dbHandler.addSavedCrime(currentCrime.getId());
+            saveIV.setImageResource(android.R.drawable.star_big_on);
+        }
+    }
     private void configureClicked(){
         ((MapsActivity)getActivity()).setViewPager(0);
     }

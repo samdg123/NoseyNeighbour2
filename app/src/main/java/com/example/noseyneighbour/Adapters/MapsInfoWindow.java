@@ -35,7 +35,7 @@ public class MapsInfoWindow implements GoogleMap.InfoWindowAdapter {
         id = Integer.parseInt(marker.getTitle());
         getCrime();
 
-        View view = ((MapsActivity)context).getLayoutInflater().inflate(R.layout.layout_bottom_marker_info, null);
+        View view = ((MapsActivity)context).getLayoutInflater().inflate(R.layout.layout_marker_info_window, null);
 
         saveIV = view.findViewById(R.id.saveIV);
         TextView categoryTV = view.findViewById(R.id.categoryTV);
