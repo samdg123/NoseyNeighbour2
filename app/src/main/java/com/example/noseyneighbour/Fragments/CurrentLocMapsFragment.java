@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.noseyneighbour.Classes.Crime;
@@ -42,6 +43,8 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     private GoogleMap googleMap;
     private ImageView configureBtn;
     private ImageView saveIV;
+    private ProgressBar progressBar;
+
     private ClusterManager<Crime> clusterManager;
     private Location location;
     private boolean crimeSaved = false;
@@ -57,6 +60,9 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     }
 
     private void init(View rootView, Bundle savedInstanceState) {
+        progressBar = rootView.findViewById(R.id.progressBar);
+
+
         saveIV = rootView.findViewById(R.id.saveIV);
         saveIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +134,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     }
 
     public void setMarkers(){
+        progressBar.setVisibility(View.VISIBLE);
         saveIV.setVisibility(View.INVISIBLE);
         googleMap.clear();
 
@@ -146,6 +153,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
                 return true;
             }
         });
+        clusterManager.setOnClusterItemClickListener(new MarkerOnClickListener());
         clusterManager.setRenderer(new CrimeClusterRenderer(getContext(), googleMap, clusterManager));
 
         googleMap.setOnCameraIdleListener(clusterManager);
@@ -171,6 +179,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
             Toast.makeText(getContext(), "No crimes found", Toast.LENGTH_LONG).show();
         }
 
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public class MarkerOnClickListener implements ClusterManager.OnClusterItemClickListener{
@@ -183,9 +192,9 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
             crimeSaved = isCrimeSaved(currentCrime);
 
             if (crimeSaved) {
-                saveIV.setImageResource(android.R.drawable.star_big_on);
+                saveIV.setImageResource(R.drawable.ic_like_checked);
             } else {
-                saveIV.setImageResource(android.R.drawable.star_big_off);
+                saveIV.setImageResource(R.drawable.ic_like_unchecked);
             }
             return false;
         }
@@ -204,15 +213,16 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     }
 
     private void saveClicked(){
+        crimeSaved = !crimeSaved;
         DBHandler dbHandler = new DBHandler(getContext());
 
         if (crimeSaved) {
-            dbHandler.removeSavedCrime(currentCrime.getId());
-            saveIV.setImageResource(android.R.drawable.star_big_off);
+            dbHandler.addSavedCrime(currentCrime.getId());
+            saveIV.setImageResource(R.drawable.ic_like_checked);
 
         } else {
-            dbHandler.addSavedCrime(currentCrime.getId());
-            saveIV.setImageResource(android.R.drawable.star_big_on);
+            dbHandler.removeSavedCrime(currentCrime.getId());
+            saveIV.setImageResource(R.drawable.ic_like_unchecked);
         }
     }
     private void configureClicked(){
