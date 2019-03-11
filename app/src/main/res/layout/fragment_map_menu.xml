@@ -8,7 +8,7 @@
     android:id="@+id/menuFragment">
 
     <TextView
-        android:id="@+id/radiusTV"
+        android:id="@+id/menuRadiusTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -104,6 +104,6 @@
         android:inputType="number"
         android:text="5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radiusTV" />
+        app:layout_constraintTop_toBottomOf="@+id/menuRadiusTV" />
 
 </android.support.constraint.ConstraintLayout>

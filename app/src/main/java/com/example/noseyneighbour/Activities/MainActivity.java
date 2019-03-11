@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             currentLocBtn.setEnabled(true);
+            graphBtn.setEnabled(true);
         }
     }
 
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 123){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 currentLocBtn.setEnabled(true);
+                graphBtn.setEnabled(true);
             }
         }
 

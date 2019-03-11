@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.location.Location;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -216,10 +217,8 @@ public class CrimeGraph extends View {
         DBHandler dbHandler = new DBHandler(getContext());
 
         numCrimesList = dbHandler.countCrimesForMonthsInYear(year);
-        //yStartValue = dbHandler.countLowestCrimeMonth();
-        //yRange = dbHandler.countHighestCrimeMonth() - yStartValue + 1;
-        yStartValue = 1;
-        yRange = 12;
+        yStartValue = dbHandler.countLowestCrimeMonth(year);
+        yRange = dbHandler.countHighestCrimeMonth(year) - yStartValue;
 
         for (int[] crime : numCrimesList) {
             Log.d("CrimeGraph", "number of crimes: " + crime[0] + ", year: " + crime[1] + ", month: " + crime[2]);
@@ -256,5 +255,9 @@ public class CrimeGraph extends View {
     public CrimeGraph(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 }

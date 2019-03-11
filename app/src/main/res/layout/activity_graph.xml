@@ -10,14 +10,14 @@
         android:id="@+id/crimeGraph"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yearSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/radiusET" />
 
     <TextView
         android:id="@+id/yearTV"
@@ -30,15 +30,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/categoryTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinner"
+        app:layout_constraintTop_toTopOf="@+id/yearTV" />
+
     <Spinner
         android:id="@+id/yearSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:entries="@array/years"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/yearTV"
         app:layout_constraintTop_toBottomOf="@+id/yearTV" />
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:entries="@array/crime_category"
+        app:layout_constraintEnd_toStartOf="@+id/searchIV"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/yearSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/categoryTV" />
 
     <ImageView
         android:id="@+id/searchIV"
@@ -48,4 +69,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/yearTV"
         app:srcCompat="@android:drawable/ic_search_category_default" />
+
+    <TextView
+        android:id="@+id/radiusTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Radius"
+        app:layout_constraintStart_toStartOf="@+id/yearTV"
+        app:layout_constraintTop_toBottomOf="@+id/yearSpinner" />
+
+    <EditText
+        android:id="@+id/radiusET"
+        android:layout_width="101dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="5"
+        app:layout_constraintStart_toEndOf="@+id/radiusTV"
+        app:layout_constraintTop_toBottomOf="@+id/yearSpinner" />
 </android.support.constraint.ConstraintLayout>

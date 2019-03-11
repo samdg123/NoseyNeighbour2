@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Activities.MapsActivity;
 import com.example.noseyneighbour.CrimeClusterRenderer;
-import com.example.noseyneighbour.DataRetrieval;
+import com.example.noseyneighbour.DataRetrievalMaps;
 import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
 import com.example.noseyneighbour.UI_Elements.MapsInfoWindow;
@@ -94,7 +94,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     public void onMapReady(GoogleMap mMap) {
         googleMap = mMap;
 
-        requestPermissions();
+        getLastKnownLocation();
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(12).build();
@@ -109,7 +109,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         setUpClusterer();
     }
 
-    private void requestPermissions(){
+    private void getLastKnownLocation(){
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -140,7 +140,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
 
         ((MapsActivity)getActivity()).setLocation(location);
 
-        DataRetrieval dataRetrieval = new DataRetrieval(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
+        DataRetrievalMaps dataRetrieval = new DataRetrievalMaps(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
         dataRetrieval.execute();
     }
 

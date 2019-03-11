@@ -22,7 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class DataRetrieval extends AsyncTask<Void, Void, String> {
+public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
 
     ArrayList<Crime> crimes;
 
@@ -31,16 +31,14 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
     LatLng southWest;
     LatLng northWest;
 
-    private GoogleMap googleMap;
     private String crimeType;
     private int year;
     private int month;
     private float radius;
     private LatLng currentLatLng;
-    private Context context;
+    Context context;
 
-    public DataRetrieval(GoogleMap googleMap, String crimeType, int year, int month, float radius, Location globalLocation, Context context) {
-        this.googleMap = googleMap;
+    public DataRetrievalParent(String crimeType, int year, int month, float radius, Location globalLocation, Context context) {
         this.crimeType = crimeType;
         this.year = year;
         this.month = month;
@@ -82,13 +80,6 @@ public class DataRetrieval extends AsyncTask<Void, Void, String> {
         return null;
     }
 
-    @Override
-    protected void onPostExecute(String response) {
-        ((MapsActivity)context).getCurrentLocMapsFragment().setClusterManagerItems(crimes);
-
-        googleMap.addPolygon(new PolygonOptions().add(northEast, southEast, southWest, northWest));
-        Log.d("marker", "added polygon");
-    }
 
     private ArrayList<LatLng> getLatLngCorners(LatLng center, double radiusMiles){
         ArrayList<LatLng> corners = new ArrayList<>();

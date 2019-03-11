@@ -146,11 +146,43 @@ public class DBHandler extends SQLiteOpenHelper {
         return highest;
     }
 
+    public int countHighestCrimeMonth(int year){
+        int highest;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT count(*) as crimes from " + CRIME_TABLE_NAME +
+                " WHERE " + CRIME_COLUMN_YEAR + " = " + year +
+                " group by " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH +
+                " order by crimes desc limit 1";
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        highest = cursor.getInt(0);
+
+        db.close();
+        return highest;
+    }
+
     public int countLowestCrimeMonth(){
         int lowest;
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = "SELECT count(*) as crimes from " + CRIME_TABLE_NAME +
+                " group by " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH +
+                " order by crimes asc limit 1";
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        lowest = cursor.getInt(0);
+
+        db.close();
+        return lowest;
+    }
+
+    public int countLowestCrimeMonth(int year){
+        int lowest;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT count(*) as crimes from " + CRIME_TABLE_NAME +
+                " WHERE " + CRIME_COLUMN_YEAR + " = " + year +
                 " group by " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH +
                 " order by crimes asc limit 1";
         Cursor cursor = db.rawQuery(query, null);
