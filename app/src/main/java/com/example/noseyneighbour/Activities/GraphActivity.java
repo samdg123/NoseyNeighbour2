@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,11 +24,11 @@ import com.example.noseyneighbour.UI_Elements.CrimeGraph;
 public class GraphActivity extends AppCompatActivity {
 
     private CrimeGraph crimeGraph;
-    private TextView yearTV;
     private Spinner yearSpinner;
     private Spinner categorySpinner;
     private EditText radiusET;
     private ImageView searchIV;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class GraphActivity extends AppCompatActivity {
         yearSpinner = findViewById(R.id.yearSpinner);
         categorySpinner = findViewById(R.id.categorySpinner);
         radiusET = findViewById(R.id.radiusET);
+        progressBar = findViewById(R.id.progressBar2);
 
         searchIV = findViewById(R.id.searchIV);
         searchIV.setOnClickListener(new View.OnClickListener() {
@@ -49,10 +51,15 @@ public class GraphActivity extends AppCompatActivity {
     }
 
     private void searchClicked() {
+        progressBar.setVisibility(View.VISIBLE);
         String category = categorySpinner.getSelectedItem().toString();
         int radius = Integer.parseInt( radiusET.getText().toString() );
         int year = Integer.parseInt( yearSpinner.getSelectedItem().toString() );
         crimeGraph.setYear(year);
+
+        if (!category.equals("all-crime")) {
+            crimeGraph.setCategory(category);
+        }
 
         for (int month = 1; month <= 12; month++) {
             new DataRetrievalGraph(category, year, month, radius, getLastKnownLocation(), getApplicationContext(), this).execute();
@@ -82,6 +89,7 @@ public class GraphActivity extends AppCompatActivity {
 
     public void updateCrimeGraph(){
         crimeGraph.invalidate();
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
 }

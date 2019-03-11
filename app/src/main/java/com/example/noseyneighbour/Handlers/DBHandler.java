@@ -162,6 +162,22 @@ public class DBHandler extends SQLiteOpenHelper {
         return highest;
     }
 
+    public int countHighestCrimeMonth(int year, String category){
+        int highest;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT count(*) as crimes from " + CRIME_TABLE_NAME +
+                " WHERE " + CRIME_COLUMN_YEAR + " = " + year + " AND " + CRIME_COLUMN_CATEGORY + " = '" + category +
+                "' group by " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH +
+                " order by crimes desc limit 1";
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        highest = cursor.getInt(0);
+
+        db.close();
+        return highest;
+    }
+
     public int countLowestCrimeMonth(){
         int lowest;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -193,6 +209,22 @@ public class DBHandler extends SQLiteOpenHelper {
         return lowest;
     }
 
+    public int countLowestCrimeMonth(int year, String category){
+        int lowest;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT count(*) as crimes from " + CRIME_TABLE_NAME +
+                " WHERE " + CRIME_COLUMN_YEAR + " = " + year + " AND " + CRIME_COLUMN_CATEGORY + " = '" + category +
+                "' group by " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH +
+                " order by crimes asc limit 1";
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        lowest = cursor.getInt(0);
+
+        db.close();
+        return lowest;
+    }
+
     public ArrayList<int[]> countCrimesForMonthsInYear(int year){
         ArrayList<int[]> numCrimes = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -200,6 +232,32 @@ public class DBHandler extends SQLiteOpenHelper {
         String query = "SELECT COUNT(*), " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH + " FROM " + CRIME_TABLE_NAME +
                 " WHERE " + CRIME_COLUMN_YEAR + " = " + year +
                 " GROUP BY " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH +
+                " ORDER BY " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH;
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            int[] value = new int[3];
+
+            value[0] = cursor.getInt(0);
+            value[1] = cursor.getInt(1);
+            value[2] = cursor.getInt(2);
+
+            numCrimes.add(value);
+        }
+
+        Log.d("DBHandler", numCrimes.size() + " number of months");
+        db.close();
+
+        return numCrimes;
+    }
+
+    public ArrayList<int[]> countCrimesForMonthsInYear(int year, String category){
+        ArrayList<int[]> numCrimes = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT COUNT(*), " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH + " FROM " + CRIME_TABLE_NAME +
+                " WHERE " + CRIME_COLUMN_YEAR + " = " + year +  " AND " + CRIME_COLUMN_CATEGORY + " = '" + category +
+                "' GROUP BY " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH +
                 " ORDER BY " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_MONTH;
         Cursor cursor = db.rawQuery(query, null);
 

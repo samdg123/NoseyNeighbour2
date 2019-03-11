@@ -39,7 +39,6 @@ public class MapMenuFragment extends Fragment {
         monthSpinner = rootView.findViewById(R.id.monthSpinner);
         radiusET = rootView.findViewById(R.id.radiusET);
         searchBtn = rootView.findViewById(R.id.searchBtn);
-        graphBtn = rootView.findViewById(R.id.graphBtn);
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +47,6 @@ public class MapMenuFragment extends Fragment {
             }
         });
 
-        yearSpinner.setSelection(1);
         monthSpinner.setSelection(5);
 
         return rootView;

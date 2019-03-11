@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.noseyneighbour.Activities.GraphActivity;
 import com.example.noseyneighbour.Activities.MapsActivity;
@@ -17,6 +18,7 @@ import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
 
+import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -36,9 +38,11 @@ public class CrimeGraph extends View {
     int backgroundColour;
     private Context context;
     private int year = 2018;
+    private String category;
 
     @Override
     protected void onDraw(Canvas canvas) {
+
         padding = 32;
         setNumCrimesList();
         Paint axisPaint = new Paint();
@@ -49,6 +53,11 @@ public class CrimeGraph extends View {
         this.setBackgroundColor(backgroundColour);
 
         plotGraphAxis(canvas, axisPaint);
+
+        if (numCrimesList.size() < 2) {
+            Toast.makeText(context, "Not enough data", Toast.LENGTH_SHORT);
+            return;
+        }
 
         setXRange();
 
@@ -101,7 +110,9 @@ public class CrimeGraph extends View {
         x -= 60;
         y += 70;
 
-        canvas.drawText(point[2] + "-" + point[1], x, y, paint);
+        String month = new DateFormatSymbols().getMonths()[point[2]-1];
+
+        canvas.drawText(month, x, y, paint);
 
         y -= 120;
         x += 20;
@@ -176,13 +187,6 @@ public class CrimeGraph extends View {
         return x;
     }
 
-    //private void setYRangeKG(){
-    //    DBHandler dbHandler = new DBHandler(context);
-    //
-    //    yRangeKG = dbHandler.getWeightKGRange();
-    //    yStartValue = dbHandler.getMinWeight();
-    //}
-
     private void setXRange(){
         int lastIndex = numCrimesList.size()-1;
         int yearsRange = numCrimesList.get(lastIndex)[1] - numCrimesList.get(0)[1];
@@ -216,9 +220,16 @@ public class CrimeGraph extends View {
         numCrimesList = new ArrayList<>();
         DBHandler dbHandler = new DBHandler(getContext());
 
-        numCrimesList = dbHandler.countCrimesForMonthsInYear(year);
-        yStartValue = dbHandler.countLowestCrimeMonth(year);
-        yRange = dbHandler.countHighestCrimeMonth(year) - yStartValue;
+        if (category != null) {
+            numCrimesList = dbHandler.countCrimesForMonthsInYear(year, category);
+            yStartValue = dbHandler.countLowestCrimeMonth(year, category);
+            yRange = dbHandler.countHighestCrimeMonth(year, category) - yStartValue;
+
+        } else {
+            numCrimesList = dbHandler.countCrimesForMonthsInYear(year);
+            yStartValue = dbHandler.countLowestCrimeMonth(year);
+            yRange = dbHandler.countHighestCrimeMonth(year) - yStartValue;
+        }
 
         for (int[] crime : numCrimesList) {
             Log.d("CrimeGraph", "number of crimes: " + crime[0] + ", year: " + crime[1] + ", month: " + crime[2]);
@@ -238,12 +249,6 @@ public class CrimeGraph extends View {
         init(context);
     }
 
-    public CrimeGraph(Context context, int year) {
-        super(context);
-        this.year = year;
-        init(context);
-    }
-
     public CrimeGraph(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
@@ -259,5 +264,9 @@ public class CrimeGraph extends View {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

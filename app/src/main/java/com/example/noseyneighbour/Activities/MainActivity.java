@@ -3,59 +3,80 @@ package com.example.noseyneighbour.Activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.noseyneighbour.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button currentLocBtn;
-    private Button customLocBtn;
-    private Button savedCrimesBtn;
-    private Button graphBtn;
+    private ImageView mapIV;
+    private ImageView savedCrimesIV;
+    private ImageView graphIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        currentLocBtn = findViewById(R.id.currentLocBtn);
-        customLocBtn = findViewById(R.id.customLocBtn);
-        savedCrimesBtn = findViewById(R.id.savedCrimesBtn);
-        graphBtn = findViewById(R.id.graphBtn);
+        mapIV = findViewById(R.id.mapIV);
+        savedCrimesIV = findViewById(R.id.savedCrimesIV);
+        graphIV = findViewById(R.id.graphIV);
 
-        currentLocBtn.setOnClickListener(new View.OnClickListener() {
+        mapIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentLocClicked();
+                requestPermissions();
             }
         });
-        customLocBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                customLocClicked();
-            }
-        });
-        savedCrimesBtn.setOnClickListener(new View.OnClickListener() {
+        savedCrimesIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 savedCrimesClicked();
             }
         });
-        graphBtn.setOnClickListener(new View.OnClickListener() {
+        graphIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestPermissions();
+            }
+        });
+
+        mapIV.setImageDrawable( greyOutIcon(getDrawable(R.drawable.ic_map)) );
+        graphIV.setImageDrawable( greyOutIcon(getDrawable(R.drawable.ic_graph)) );
+
+        requestPermissions();
+    }
+
+    private Drawable greyOutIcon(Drawable drawable){
+        drawable.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        return drawable;
+    }
+
+    private void enableButtons(){
+        mapIV.setImageDrawable(getDrawable(R.drawable.ic_map));
+        graphIV.setImageDrawable(getDrawable(R.drawable.ic_graph));
+
+        mapIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customLocClicked();
+            }
+        });
+        graphIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 graphClicked();
             }
         });
-
-        requestPermissions();
     }
 
     private void requestPermissions() {
@@ -63,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            currentLocBtn.setEnabled(true);
-            graphBtn.setEnabled(true);
+            enableButtons();
         }
     }
 
@@ -74,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 123){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                currentLocBtn.setEnabled(true);
-                graphBtn.setEnabled(true);
+                enableButtons();
             }
         }
 

@@ -33,7 +33,7 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
 
     private String crimeType;
     private int year;
-    private int month;
+    int month;
     private float radius;
     private LatLng currentLatLng;
     Context context;
@@ -105,6 +105,9 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream));
 
         reader.beginArray();
+        if (reader.peek() == JsonToken.END_ARRAY) {
+            return crimes;
+        }
         reader.beginObject();
 
         int id = 0;

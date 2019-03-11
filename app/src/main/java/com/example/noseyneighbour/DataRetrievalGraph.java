@@ -27,6 +27,8 @@ public class DataRetrievalGraph extends DataRetrievalParent {
     @Override
     protected void onPostExecute(String response) {
         super.onPostExecute(response);
-        ((GraphActivity) activity).updateCrimeGraph();
+        if (month == 12) {
+            ((GraphActivity) activity).updateCrimeGraph();
+        }
     }
 }

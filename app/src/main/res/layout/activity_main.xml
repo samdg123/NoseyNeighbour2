@@ -42,61 +42,6 @@
         app:layout_constraintTop_toTopOf="@+id/villageIV"
         app:layout_constraintVertical_bias="0.3" />
 
-    <Button
-        android:id="@+id/currentLocBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:enabled="false"
-        android:text="Current Location"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/villageIV" />
-
-    <Button
-        android:id="@+id/customLocBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Custom Location"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentLocBtn" />
-
-    <Button
-        android:id="@+id/graphBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:enabled="false"
-        android:text="Graph"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/savedCrimesBtn" />
-
-    <Button
-        android:id="@+id/savedCrimesBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:text="Saved Crimes"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customLocBtn" />
-
     <ImageView
         android:id="@+id/detectiveIV"
         android:layout_width="125dp"
@@ -109,5 +54,68 @@
         app:layout_constraintTop_toTopOf="@+id/villageIV"
         app:layout_constraintVertical_bias="0.44"
         app:srcCompat="@drawable/ic_detective" />
+
+    <ImageView
+        android:id="@+id/graphIV"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mapIV"
+        app:srcCompat="@drawable/ic_graph" />
+
+    <ImageView
+        android:id="@+id/savedCrimesIV"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/graphIV"
+        app:layout_constraintStart_toEndOf="@+id/mapIV"
+        app:layout_constraintTop_toTopOf="@+id/mapIV"
+        app:srcCompat="@drawable/ic_like_checked" />
+
+    <ImageView
+        android:id="@+id/mapIV"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/villageIV"
+        app:srcCompat="@drawable/ic_map" />
+
+    <TextView
+        android:id="@+id/mapTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Map"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/mapIV"
+        app:layout_constraintStart_toStartOf="@+id/mapIV"
+        app:layout_constraintTop_toBottomOf="@+id/mapIV" />
+
+    <TextView
+        android:id="@+id/savedTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Saved"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/savedCrimesIV"
+        app:layout_constraintStart_toStartOf="@+id/savedCrimesIV"
+        app:layout_constraintTop_toBottomOf="@+id/savedCrimesIV" />
+
+    <TextView
+        android:id="@+id/graphTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Graph"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/graphIV"
+        app:layout_constraintStart_toStartOf="@+id/graphIV"
+        app:layout_constraintTop_toBottomOf="@+id/graphIV" />
 
 </android.support.constraint.ConstraintLayout>
