@@ -97,7 +97,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         getLastKnownLocation();
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(12).build();
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(11).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override

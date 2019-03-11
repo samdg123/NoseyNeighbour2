@@ -39,7 +39,7 @@ public class GraphActivity extends AppCompatActivity {
         yearSpinner = findViewById(R.id.yearSpinner);
         categorySpinner = findViewById(R.id.categorySpinner);
         radiusET = findViewById(R.id.radiusET);
-        progressBar = findViewById(R.id.progressBar2);
+        progressBar = findViewById(R.id.progressBarGraph);
 
         searchIV = findViewById(R.id.searchIV);
         searchIV.setOnClickListener(new View.OnClickListener() {
@@ -87,9 +87,14 @@ public class GraphActivity extends AppCompatActivity {
         return location;
     }
 
+    public void incrementProgressBar(){
+        progressBar.setProgress(progressBar.getProgress()+1);
+    }
+
     public void updateCrimeGraph(){
         crimeGraph.invalidate();
         progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setProgress(0);
     }
 
 }

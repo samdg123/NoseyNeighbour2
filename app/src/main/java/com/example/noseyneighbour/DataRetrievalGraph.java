@@ -29,6 +29,8 @@ public class DataRetrievalGraph extends DataRetrievalParent {
         super.onPostExecute(response);
         if (month == 12) {
             ((GraphActivity) activity).updateCrimeGraph();
+        } else {
+            ((GraphActivity) activity).incrementProgressBar();
         }
     }
 }

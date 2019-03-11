@@ -33,7 +33,7 @@ public class CrimeGraph extends View {
     private int xStartValue;
     private int yRange;
     private int yStartValue;
-    private int padding;
+    private int padding = 40;
     private @ColorInt
     int backgroundColour;
     private Context context;
@@ -42,8 +42,7 @@ public class CrimeGraph extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
-        padding = 32;
+        padding = 40;
         setNumCrimesList();
         Paint axisPaint = new Paint();
 
