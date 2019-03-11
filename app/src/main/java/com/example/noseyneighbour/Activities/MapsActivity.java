@@ -47,11 +47,7 @@ public class MapsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (viewPager.getCurrentItem() == 1){
-            viewPager.setCurrentItem(0);
-        } else {
-            super.onBackPressed();
-        }
+        finish();
     }
 
     private void setupViewPager(ViewPager viewPager){
