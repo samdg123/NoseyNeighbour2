@@ -38,7 +38,7 @@ public class CrimeGraph extends View {
     int backgroundColour;
     private Context context;
     private int year = 2018;
-    private String category;
+    private String category = "";
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -55,7 +55,7 @@ public class CrimeGraph extends View {
         plotGraphAxis(canvas, axisPaint);
 
         if (numCrimesList.size() < 2) {
-            Toast.makeText(context, "Not enough data", Toast.LENGTH_SHORT);
+            Toast.makeText(context, "Not enough data", Toast.LENGTH_LONG);
             return;
         }
 
@@ -220,13 +220,19 @@ public class CrimeGraph extends View {
         numCrimesList = new ArrayList<>();
         DBHandler dbHandler = new DBHandler(getContext());
 
-        if (category != null) {
+        if (category != "") {
             numCrimesList = dbHandler.countCrimesForMonthsInYear(year, category);
+            if (numCrimesList.size() == 0) {
+                return;
+            }
             yStartValue = dbHandler.countLowestCrimeMonth(year, category);
             yRange = dbHandler.countHighestCrimeMonth(year, category) - yStartValue;
 
         } else {
             numCrimesList = dbHandler.countCrimesForMonthsInYear(year);
+            if (numCrimesList.size() == 0) {
+                return;
+            }
             yStartValue = dbHandler.countLowestCrimeMonth(year);
             yRange = dbHandler.countHighestCrimeMonth(year) - yStartValue;
         }

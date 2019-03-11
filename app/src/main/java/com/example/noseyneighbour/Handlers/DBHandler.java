@@ -203,6 +203,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 " order by crimes asc limit 1";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
+
+        if (cursor.getCount() == -1) {
+            return -1;
+        }
+
         lowest = cursor.getInt(0);
 
         db.close();

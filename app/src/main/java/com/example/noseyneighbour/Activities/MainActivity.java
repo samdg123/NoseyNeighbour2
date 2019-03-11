@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.noseyneighbour.Fragments.CurrentLocMapsFragment;
 import com.example.noseyneighbour.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mapIV;
     private ImageView savedCrimesIV;
     private ImageView graphIV;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestPermissions();
+                intent = new Intent(getApplicationContext(), MapsActivity.class);
             }
         });
         savedCrimesIV.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestPermissions();
+                intent = new Intent(getApplicationContext(), GraphActivity.class);
             }
         });
 
@@ -95,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 123){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 enableButtons();
+                if (intent != null) {
+                    startActivity(intent);
+                }
             }
         }
 
@@ -103,12 +110,6 @@ public class MainActivity extends AppCompatActivity {
     private void customLocClicked(){
         Intent intent = new Intent(this, MapsActivity.class);
         intent.putExtra("currentLoc", false);
-        startActivity(intent);
-    }
-
-    private void currentLocClicked(){
-        Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("currentLoc", true);
         startActivity(intent);
     }
 
