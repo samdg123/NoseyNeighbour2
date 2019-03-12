@@ -82,7 +82,7 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
                     }
 
                     private void showOnMap(){
-
+                        ((SavedCrimesActivity) context).showCrimeOnMap(crime);
                     }
                 });
 
