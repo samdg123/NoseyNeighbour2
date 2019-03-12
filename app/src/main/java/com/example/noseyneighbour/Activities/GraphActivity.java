@@ -21,6 +21,8 @@ import com.example.noseyneighbour.DataRetrievalGraph;
 import com.example.noseyneighbour.R;
 import com.example.noseyneighbour.UI_Elements.CrimeGraph;
 
+import java.util.ArrayList;
+
 public class GraphActivity extends AppCompatActivity {
 
     private CrimeGraph crimeGraph;
@@ -51,7 +53,10 @@ public class GraphActivity extends AppCompatActivity {
     }
 
     private void searchClicked() {
+        crimeGraph.setNumCrimesList(new ArrayList<int[]>());
+        crimeGraph.invalidate();
         progressBar.setVisibility(View.VISIBLE);
+
         String category = categorySpinner.getSelectedItem().toString();
         int radius = Integer.parseInt( radiusET.getText().toString() );
         int year = Integer.parseInt( yearSpinner.getSelectedItem().toString() );
@@ -89,6 +94,13 @@ public class GraphActivity extends AppCompatActivity {
 
     public void incrementProgressBar(){
         progressBar.setProgress(progressBar.getProgress()+1);
+        if (progressBar.getProgress() >= 12) {
+            updateCrimeGraph();
+        }
+    }
+    public void addToNumCrimesList(int[] numCrimes){
+        crimeGraph.addToNumCrimesList(numCrimes);
+        incrementProgressBar();
     }
 
     public void updateCrimeGraph(){

@@ -63,10 +63,7 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
             URL url = new URL("https://data.police.uk/api/crimes-street/" + crimeType + "?poly=" + northEast.latitude + "," + northEast.longitude + ":" + southEast.latitude + "," + southEast.longitude + ":" + southWest.latitude + "," + southWest.longitude + ":" + northWest.latitude + "," + northWest.longitude + "&date=" + date);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-            crimes = parseJSON( urlConnection.getInputStream() );
-
-            DBHandler dbHandler = new DBHandler(context);
-            dbHandler.addCrimes(crimes);
+            parseJSON( urlConnection.getInputStream() );
 
             urlConnection.disconnect();
 
@@ -100,13 +97,13 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
         return corners;
     }
 
-    private ArrayList<Crime> parseJSON(InputStream inputStream) throws IOException {
+    public void parseJSON(InputStream inputStream) throws IOException {
         ArrayList<Crime> crimes = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream));
 
         reader.beginArray();
         if (reader.peek() == JsonToken.END_ARRAY) {
-            return crimes;
+            return;
         }
         reader.beginObject();
 
@@ -206,14 +203,13 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
         }
         reader.close();
 
-        return crimes;
+        addCrimesToDB(crimes);
     }
 
 
-    private void addCrimeToDB(Crime crime){
+    private void addCrimesToDB(ArrayList<Crime> crimes){
         DBHandler dbHandler = new DBHandler(context);
-
-        dbHandler.addCrime(crime);
+        dbHandler.addCrimes(crimes);
     }
 
 }

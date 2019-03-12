@@ -43,7 +43,7 @@ public class CrimeGraph extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         padding = 40;
-        setNumCrimesList();
+        //setNumCrimesList();
         Paint axisPaint = new Paint();
 
         axisPaint.setColor(Color.BLUE);
@@ -53,11 +53,12 @@ public class CrimeGraph extends View {
 
         plotGraphAxis(canvas, axisPaint);
 
-        if (numCrimesList.size() < 2) {
+        if (numCrimesList == null || numCrimesList.size() < 2) {
             Toast.makeText(context, "Not enough data", Toast.LENGTH_LONG);
             return;
         }
 
+        setYRange();
         setXRange();
 
         addPoints(canvas);
@@ -196,6 +197,23 @@ public class CrimeGraph extends View {
         Log.d("xrange", "monthrange is " + monthsRange + " and yearsrange is " + yearsRange + "...  and numcrimes is " + lastIndex);
     }
 
+    private void setYRange(){
+        int highest = 0;
+        int lowest = numCrimesList.get(0)[0];
+
+        for (int[] numCrimes : numCrimesList) {
+            if (numCrimes[0] > highest) {
+                highest = numCrimes[0];
+
+            } else if (numCrimes[0] < lowest) {
+                lowest = numCrimes[0];
+            }
+        }
+
+        yStartValue = lowest;
+        yRange = highest - lowest;
+    }
+
     private void plotGraphAxis(Canvas canvas, Paint paint){
         int stroke = Math.round(paint.getStrokeWidth());
 
@@ -215,30 +233,35 @@ public class CrimeGraph extends View {
         padding += stroke*2;
     }
 
-    private void setNumCrimesList(){
-        numCrimesList = new ArrayList<>();
-        DBHandler dbHandler = new DBHandler(getContext());
+    public void addToNumCrimesList(int[] numCrimes){
+        numCrimesList.add(numCrimes);
+    }
 
-        if (category != "") {
-            numCrimesList = dbHandler.countCrimesForMonthsInYear(year, category);
-            if (numCrimesList.size() == 0) {
-                return;
-            }
-            yStartValue = dbHandler.countLowestCrimeMonth(year, category);
-            yRange = dbHandler.countHighestCrimeMonth(year, category) - yStartValue;
-
-        } else {
-            numCrimesList = dbHandler.countCrimesForMonthsInYear(year);
-            if (numCrimesList.size() == 0) {
-                return;
-            }
-            yStartValue = dbHandler.countLowestCrimeMonth(year);
-            yRange = dbHandler.countHighestCrimeMonth(year) - yStartValue;
-        }
-
-        for (int[] crime : numCrimesList) {
-            Log.d("CrimeGraph", "number of crimes: " + crime[0] + ", year: " + crime[1] + ", month: " + crime[2]);
-        }
+    public void setNumCrimesList(ArrayList<int[]> numCrimesList){
+        this.numCrimesList = numCrimesList;
+        //numCrimesList = new ArrayList<>();
+        //DBHandler dbHandler = new DBHandler(getContext());
+//
+        //if (category != "") {
+        //    numCrimesList = dbHandler.countCrimesForMonthsInYear(year, category);
+        //    if (numCrimesList.size() == 0) {
+        //        return;
+        //    }
+        //    yStartValue = dbHandler.countLowestCrimeMonth(year, category);
+        //    yRange = dbHandler.countHighestCrimeMonth(year, category) - yStartValue;
+//
+        //} else {
+        //    numCrimesList = dbHandler.countCrimesForMonthsInYear(year);
+        //    if (numCrimesList.size() == 0) {
+        //        return;
+        //    }
+        //    yStartValue = dbHandler.countLowestCrimeMonth(year);
+        //    yRange = dbHandler.countHighestCrimeMonth(year) - yStartValue;
+        //}
+//
+        //for (int[] crime : numCrimesList) {
+        //    Log.d("CrimeGraph", "number of crimes: " + crime[0] + ", year: " + crime[1] + ", month: " + crime[2]);
+        //}
     }
 
     private void init(Context context) {
@@ -247,6 +270,7 @@ public class CrimeGraph extends View {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.color, typedValue, true);
         backgroundColour = typedValue.data;
+        numCrimesList = new ArrayList<>();
     }
 
     public CrimeGraph(Context context) {
