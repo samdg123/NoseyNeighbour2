@@ -1,20 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="280dp"
-    android:layout_height="match_parent"
-    android:id="@+id/menuFragment">
+    android:id="@+id/menuFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="877dp"
+        android:layout_marginBottom="1dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/common_google_signin_btn_text_light_default"
+        android:tintMode="src_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_fields" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="216dp"
+        android:layout_height="70dp"
+        android:background="#FFEB6A"
+        app:layout_constraintBottom_toBottomOf="@+id/categorySpinner"
+        app:layout_constraintEnd_toEndOf="@+id/categorySpinner"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinner"
+        app:layout_constraintTop_toTopOf="@+id/categoryTV" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="216dp"
+        android:layout_height="70dp"
+        android:background="#FFEB6A"
+        app:layout_constraintBottom_toBottomOf="@+id/yearSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/yearSpinner"
+        app:layout_constraintStart_toStartOf="@+id/yearSpinner"
+        app:layout_constraintTop_toTopOf="@+id/yearTV" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="216dp"
+        android:layout_height="70dp"
+        android:background="#FFEB6A"
+        app:layout_constraintBottom_toBottomOf="@+id/monthSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/monthSpinner"
+        app:layout_constraintStart_toStartOf="@+id/monthSpinner"
+        app:layout_constraintTop_toTopOf="@+id/monthTV" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="216dp"
+        android:layout_height="78dp"
+        android:layout_marginBottom="4dp"
+        android:background="#FFEB6A"
+        app:layout_constraintBottom_toBottomOf="@+id/radiusET"
+        app:layout_constraintEnd_toEndOf="@+id/radiusET"
+        app:layout_constraintStart_toStartOf="@+id/radiusET"
+        app:layout_constraintTop_toTopOf="@+id/menuRadiusTV" />
 
     <TextView
         android:id="@+id/menuRadiusTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
         android:text="Radius"
-        android:textSize="18sp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monthSpinner" />
 
@@ -22,64 +79,80 @@
         android:id="@+id/monthTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
         android:text="Month"
-        android:textSize="18sp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yearSpinner" />
 
     <Spinner
         android:id="@+id/monthSpinner"
-        android:layout_width="246dp"
+        android:layout_width="200dp"
         android:layout_height="25dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:entries="@array/months"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monthTV" />
+        app:layout_constraintTop_toBottomOf="@+id/monthTV"
+        tools:theme="@style/AlertDialog.AppCompat.Light" />
 
     <TextView
         android:id="@+id/yearTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
         android:text="Year"
-        android:textSize="18sp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
 
     <Spinner
         android:id="@+id/yearSpinner"
-        android:layout_width="246dp"
+        android:layout_width="200dp"
         android:layout_height="25dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:entries="@array/years"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yearTV" />
 
     <Button
         android:id="@+id/searchBtn"
-        android:layout_width="0dp"
+        android:layout_width="216dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
+        android:background="#72E890"
         android:text="Search"
-        android:textColor="@android:color/holo_green_light"
+        android:textAllCaps="false"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/categorySpinner"
-        android:layout_width="246dp"
+        android:layout_width="200dp"
         android:layout_height="25dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:entries="@array/crime_category"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryTV" />
 
@@ -87,22 +160,27 @@
         android:id="@+id/categoryTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:text="Category"
-        android:textSize="18sp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/radiusET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="number"
         android:text="5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menuRadiusTV" />
 

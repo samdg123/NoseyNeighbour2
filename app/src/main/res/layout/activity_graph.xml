@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#676551"
     tools:context=".Activities.GraphActivity">
 
     <com.example.noseyneighbour.UI_Elements.CrimeGraph
@@ -22,6 +23,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:text="Year"
+        android:textColor="#ffffff"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Category"
+        android:textColor="#ffffff"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/categorySpinner"
         app:layout_constraintTop_toTopOf="@+id/yearTV" />
@@ -72,6 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Radius"
+        android:textColor="#ffffff"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/yearTV"
         app:layout_constraintTop_toBottomOf="@+id/yearSpinner" />
@@ -85,6 +89,7 @@
         android:ems="10"
         android:inputType="number"
         android:text="5"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintStart_toEndOf="@+id/radiusTV"
         app:layout_constraintTop_toBottomOf="@+id/yearSpinner" />
 

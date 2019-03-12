@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity android:name=".Activities.SavedCrimesActivity"></activity>
         <activity android:name=".Activities.GraphActivity" />
         <activity android:name=".Activities.MapsActivity" />

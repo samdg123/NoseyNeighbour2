@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#686651"
     tools:context=".Activities.MainActivity">
 
 
@@ -91,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Map"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/mapIV"
         app:layout_constraintStart_toStartOf="@+id/mapIV"
@@ -102,6 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Saved"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/savedCrimesIV"
         app:layout_constraintStart_toStartOf="@+id/savedCrimesIV"
@@ -113,6 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Graph"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/graphIV"
         app:layout_constraintStart_toStartOf="@+id/graphIV"
