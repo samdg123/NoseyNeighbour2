@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 public class DBHandler extends SQLiteOpenHelper {
 
-    private static DBHandler instance;
-
     private static String DB_NAME = "crimes.db";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
@@ -335,8 +333,6 @@ public class DBHandler extends SQLiteOpenHelper {
             crimeValues.put(CRIME_COLUMN_ID, crime.getId());
 
             db.replace(CRIME_TABLE_NAME, null, crimeValues);
-            Log.d("DBHandler", "crime added, year = " + crime.getYear() + ", month = " + crime.getMonth());
-            Log.d("DBHandler", "Now " + crimesTableSize() + " items in crime table");
         }
 
         db.close();
@@ -360,6 +356,11 @@ public class DBHandler extends SQLiteOpenHelper {
 
         Log.d("DBHandler", "crime added, year = " + crime.getYear() + ", month = " + crime.getMonth());
         db.close();
+    }
+
+    public void removeCrime(Crime crime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(CRIME_TABLE_NAME, CRIME_COLUMN_ID + " = " + crime.getId(), null);
     }
 
     public ArrayList<Crime> getAllCrimes(){

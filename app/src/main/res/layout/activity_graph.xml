@@ -7,6 +7,20 @@
     android:background="#676551"
     tools:context=".Activities.GraphActivity">
 
+    <ImageView
+        android:id="@+id/backgroundImageView3"
+        android:layout_width="0dp"
+        android:layout_height="881dp"
+        android:layout_marginBottom="1dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/common_google_signin_btn_text_light_default"
+        android:tintMode="src_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_fields" />
+
     <com.example.noseyneighbour.UI_Elements.CrimeGraph
         android:id="@+id/crimeGraph"
         android:layout_width="0dp"

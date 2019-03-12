@@ -7,6 +7,19 @@
     android:background="#676551"
     tools:context=".Activities.SavedCrimesActivity">
 
+    <ImageView
+        android:id="@+id/backgroundImageView2"
+        android:layout_width="0dp"
+        android:layout_height="881dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/common_google_signin_btn_text_light_default"
+        android:tintMode="src_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_fields" />
+
     <ImageButton
         android:id="@+id/titleBorder"
         android:layout_width="411dp"

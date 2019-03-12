@@ -57,6 +57,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         init(rootView, savedInstanceState);
 
         return rootView;
+
     }
 
     private void init(View rootView, Bundle savedInstanceState) {
@@ -168,6 +169,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
 
 
     public void setClusterManagerItems(ArrayList<Crime> crimes) {
+        ((MapsActivity) getActivity()).setCrimes(crimes);
         clusterManager.clearItems();
 
         if (crimes != null) {
@@ -217,10 +219,12 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         DBHandler dbHandler = new DBHandler(getContext());
 
         if (crimeSaved) {
+            dbHandler.addCrime(currentCrime);
             dbHandler.addSavedCrime(currentCrime.getId());
             saveIV.setImageResource(R.drawable.ic_like_checked);
 
         } else {
+            dbHandler.removeCrime(currentCrime);
             dbHandler.removeSavedCrime(currentCrime.getId());
             saveIV.setImageResource(R.drawable.ic_like_unchecked);
         }

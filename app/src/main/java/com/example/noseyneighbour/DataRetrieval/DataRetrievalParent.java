@@ -203,13 +203,13 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
         }
         reader.close();
 
-        addCrimesToDB(crimes);
+        //addCrimesToDB(crimes);
     }
 
 
     private void addCrimesToDB(ArrayList<Crime> crimes){
         DBHandler dbHandler = new DBHandler(context);
-        dbHandler.addCrimes(crimes);
+        //dbHandler.addCrimes(crimes);
     }
 
 }

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.noseyneighbour.Activities.MapsActivity;
 import com.example.noseyneighbour.Classes.Crime;
+import com.example.noseyneighbour.Fragments.CurrentLocMapsFragment;
 import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,7 +33,6 @@ public class MapsInfoWindow implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(Marker marker) {
-
         id = Integer.parseInt(marker.getTitle());
         getCrime();
 
@@ -51,9 +51,13 @@ public class MapsInfoWindow implements GoogleMap.InfoWindowAdapter {
     }
 
     private void getCrime() {
-        DBHandler dbHandler = new DBHandler(context);
-
-        crime = dbHandler.getCrime(id);
+        for (Crime crimeIteration : ((MapsActivity) context).getCrimes()) {
+            if (crimeIteration.getId() == id) {
+                crime = crimeIteration;
+            }
+        }
+        //DBHandler dbHandler = new DBHandler(context);
+        //crime = dbHandler.getCrime(id);
     }
 
     private void isSaved(){
