@@ -1,4 +1,4 @@
-package com.example.noseyneighbour;
+package com.example.noseyneighbour.DataRetrieval;
 
 import android.content.Context;
 import android.location.Location;
@@ -98,7 +98,7 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
     }
 
     public void parseJSON(InputStream inputStream) throws IOException {
-        ArrayList<Crime> crimes = new ArrayList<>();
+        crimes = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream));
 
         reader.beginArray();

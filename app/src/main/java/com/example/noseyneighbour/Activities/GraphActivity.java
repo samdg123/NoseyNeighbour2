@@ -15,9 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.example.noseyneighbour.DataRetrievalGraph;
+import com.example.noseyneighbour.DataRetrieval.DataRetrievalGraph;
 import com.example.noseyneighbour.R;
 import com.example.noseyneighbour.UI_Elements.CrimeGraph;
 

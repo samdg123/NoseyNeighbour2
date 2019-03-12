@@ -1,4 +1,4 @@
-package com.example.noseyneighbour;
+package com.example.noseyneighbour.DataRetrieval;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,9 +7,6 @@ import android.util.JsonReader;
 import android.util.JsonToken;
 
 import com.example.noseyneighbour.Activities.GraphActivity;
-import com.example.noseyneighbour.Classes.Crime;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;

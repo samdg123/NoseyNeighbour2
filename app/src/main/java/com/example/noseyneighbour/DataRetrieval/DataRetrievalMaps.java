@@ -1,26 +1,12 @@
-package com.example.noseyneighbour;
+package com.example.noseyneighbour.DataRetrieval;
 
 import android.content.Context;
 import android.location.Location;
-import android.os.AsyncTask;
-import android.util.JsonReader;
-import android.util.JsonToken;
 import android.util.Log;
 
 import com.example.noseyneighbour.Activities.MapsActivity;
-import com.example.noseyneighbour.Classes.Crime;
-import com.example.noseyneighbour.Handlers.DBHandler;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.maps.android.SphericalUtil;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 
 public class DataRetrievalMaps extends DataRetrievalParent {
 

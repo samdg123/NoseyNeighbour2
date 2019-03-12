@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Activities.MapsActivity;
 import com.example.noseyneighbour.CrimeClusterRenderer;
-import com.example.noseyneighbour.DataRetrievalMaps;
+import com.example.noseyneighbour.DataRetrieval.DataRetrievalMaps;
 import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
 import com.example.noseyneighbour.UI_Elements.MapsInfoWindow;
