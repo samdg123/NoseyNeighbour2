@@ -105,8 +105,8 @@ public class DBHandler extends SQLiteOpenHelper {
         Boolean saved = false;
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT " + FAVORITE_COLUMN_CRIME_ID + " FROM " + FAVORITE_TABLE_NAME +
-                " WHERE " + FAVORITE_COLUMN_CRIME_ID + " = " + id;
+        String query = "SELECT " + CRIME_COLUMN_ID + " FROM " + CRIME_TABLE_NAME +
+                " WHERE " + CRIME_COLUMN_ID + " = " + id;
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.getCount() > 0) {
@@ -363,7 +363,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.delete(CRIME_TABLE_NAME, CRIME_COLUMN_ID + " = " + crime.getId(), null);
     }
 
-    public ArrayList<Crime> getAllCrimes(){
+    public ArrayList<Crime> getCrimes(){
         ArrayList<Crime> crimes = new ArrayList<Crime>();
 
         String query = "SELECT  " + CRIME_COLUMN_LATITUDE + ", " + CRIME_COLUMN_LONGITUDE + ", " + CRIME_COLUMN_OUTCOME + ", " + CRIME_COLUMN_MONTH + ", " + CRIME_COLUMN_YEAR + ", " + CRIME_COLUMN_CATEGORY + ", " + CRIME_COLUMN_LOCATION_DESC + ", " + CRIME_COLUMN_ID +

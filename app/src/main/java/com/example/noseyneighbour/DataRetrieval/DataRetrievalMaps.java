@@ -22,6 +22,5 @@ public class DataRetrievalMaps extends DataRetrievalParent {
         ((MapsActivity)context).getCurrentLocMapsFragment().setClusterManagerItems(crimes);
 
         googleMap.addPolygon(new PolygonOptions().add(northEast, southEast, southWest, northWest));
-        Log.d("marker", "added polygon");
     }
 }

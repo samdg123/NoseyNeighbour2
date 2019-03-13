@@ -73,7 +73,7 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
 
                     private void removeFromFavorites(){
                         DBHandler dbHandler = new DBHandler(context);
-                        dbHandler.removeSavedCrime(crime.getId());
+                        dbHandler.removeCrime(crime);
 
                         crimes.remove(crime);
                         notifyDataSetChanged();

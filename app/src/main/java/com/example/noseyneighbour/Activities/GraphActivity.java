@@ -57,6 +57,7 @@ public class GraphActivity extends AppCompatActivity {
         crimeGraph.setNumCrimesList(new ArrayList<int[]>());
         crimeGraph.invalidate();
         progressBar.setVisibility(View.VISIBLE);
+        searchBtn.setEnabled(false);
 
         String category = categorySpinner.getSelectedItem().toString();
         int radius = Integer.parseInt( radiusET.getText().toString() );
@@ -108,6 +109,7 @@ public class GraphActivity extends AppCompatActivity {
         crimeGraph.invalidate();
         progressBar.setVisibility(View.INVISIBLE);
         progressBar.setProgress(0);
+        searchBtn.setEnabled(true);
     }
 
 }

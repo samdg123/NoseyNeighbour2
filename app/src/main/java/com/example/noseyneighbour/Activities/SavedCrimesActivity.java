@@ -34,10 +34,10 @@ public class SavedCrimesActivity extends AppCompatActivity implements OnMapReady
         ArrayList<Crime> crimes;
 
         DBHandler dbHandler = new DBHandler(this);
-        crimes = dbHandler.getSavedCrimes();
+        crimes = dbHandler.getCrimes();
 
         numCrimesTV = findViewById(R.id.numCrimesTV);
-        numCrimesTV.setText(crimes.size() + " Saved Crimes");
+        numCrimesTV.setText(crimes.size() + " Crimes Saved");
 
         RecyclerView recyclerView = findViewById(R.id.crimesRV);
         recyclerView.setHasFixedSize(true);

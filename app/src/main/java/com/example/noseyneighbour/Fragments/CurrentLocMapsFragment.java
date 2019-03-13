@@ -162,12 +162,6 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
     }
 
 
-
-    private void displayToast(Location location){
-        Toast.makeText(getActivity().getApplicationContext(), Double.toString(location.getLatitude()) + Double.toString(location.getLongitude()), Toast.LENGTH_LONG).show();
-    }
-
-
     public void setClusterManagerItems(ArrayList<Crime> crimes) {
         ((MapsActivity) getActivity()).setCrimes(crimes);
         clusterManager.clearItems();
@@ -220,12 +214,10 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
 
         if (crimeSaved) {
             dbHandler.addCrime(currentCrime);
-            dbHandler.addSavedCrime(currentCrime.getId());
             saveIV.setImageResource(R.drawable.ic_like_checked);
 
         } else {
             dbHandler.removeCrime(currentCrime);
-            dbHandler.removeSavedCrime(currentCrime.getId());
             saveIV.setImageResource(R.drawable.ic_like_unchecked);
         }
     }
