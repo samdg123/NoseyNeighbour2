@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -28,7 +29,7 @@ public class GraphActivity extends AppCompatActivity {
     private Spinner yearSpinner;
     private Spinner categorySpinner;
     private EditText radiusET;
-    private ImageView searchIV;
+    private Button searchBtn;
     private ProgressBar progressBar;
 
     @Override
@@ -42,13 +43,14 @@ public class GraphActivity extends AppCompatActivity {
         radiusET = findViewById(R.id.radiusET);
         progressBar = findViewById(R.id.progressBarGraph);
 
-        searchIV = findViewById(R.id.searchIV);
-        searchIV.setOnClickListener(new View.OnClickListener() {
+        searchBtn = findViewById(R.id.searchGraphBtn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchClicked();
             }
         });
+
     }
 
     private void searchClicked() {

@@ -1,7 +1,6 @@
 package com.example.noseyneighbour.Adapters;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
@@ -35,7 +34,7 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
     @NonNull
     @Override
     public CrimeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_layout_crime, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_holder_crime, viewGroup, false);
         return new CrimeViewHolder(itemView);
     }
 

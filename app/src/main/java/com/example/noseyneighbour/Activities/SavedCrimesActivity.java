@@ -37,7 +37,7 @@ public class SavedCrimesActivity extends AppCompatActivity implements OnMapReady
         crimes = dbHandler.getSavedCrimes();
 
         numCrimesTV = findViewById(R.id.numCrimesTV);
-        numCrimesTV.setText(crimes.size() + " crimes saved");
+        numCrimesTV.setText(crimes.size() + " Saved Crimes");
 
         RecyclerView recyclerView = findViewById(R.id.crimesRV);
         recyclerView.setHasFixedSize(true);
@@ -72,10 +72,6 @@ public class SavedCrimesActivity extends AppCompatActivity implements OnMapReady
         map.onCreate(null);
         map.onResume();
         map.getMapAsync(this);
-
-
-
-
     }
 
     @Override

@@ -40,18 +40,23 @@ public class CrimeGraph extends View {
     private int year = 2018;
     private String category = "";
 
+    private final int AXIS_COLOR = Color.LTGRAY;
+    private final int POINT_COLOR = Color.WHITE;
+
+    private final int TEXT_COLOR = Color.WHITE;
+    private final int TEXT_SIZE = 40;
+    private final int TEXT_SHADOW_RADIUS = 7;
+    private final int TEXT_SHADOW_DX = 0;
+    private final int TEXT_SHADOW_DY = 0;
+    private final int TEXT_SHADOW_COLOR = Color.BLACK;
+
     @Override
     protected void onDraw(Canvas canvas) {
-        padding = 40;
-        //setNumCrimesList();
-        Paint axisPaint = new Paint();
-
-        axisPaint.setColor(Color.BLUE);
-        axisPaint.setStrokeWidth(16);
+        padding = 64;
 
         this.setBackgroundColor(backgroundColour);
 
-        plotGraphAxis(canvas, axisPaint);
+        plotGraphAxis(canvas);
 
         if (numCrimesList == null || numCrimesList.size() < 2) {
             Toast.makeText(context, "Not enough data", Toast.LENGTH_LONG);
@@ -66,7 +71,7 @@ public class CrimeGraph extends View {
 
     private void addPoints(Canvas canvas){
         Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
+        paint.setColor(POINT_COLOR);
         paint.setStrokeWidth(32);
 
         float x;
@@ -104,27 +109,21 @@ public class CrimeGraph extends View {
 
     private void drawTextOnPoint(int[] point, float x, float y, Canvas canvas){
         Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(40);
-
-        x -= 60;
-        y += 70;
+        paint.setColor(TEXT_COLOR);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setFakeBoldText(true);
+        paint.setTextSize(TEXT_SIZE);
+        paint.setShadowLayer(TEXT_SHADOW_RADIUS, TEXT_SHADOW_DX,TEXT_SHADOW_DY, TEXT_SHADOW_COLOR);
 
         String month = new DateFormatSymbols().getMonths()[point[2]-1];
 
-        canvas.drawText(month, x, y, paint);
-
-        y -= 120;
-        x += 20;
-
-        canvas.drawText(Integer.toString(point[0]), x, y, paint);
-
+        canvas.drawText(month, x, y+55, paint);
+        canvas.drawText(Integer.toString(point[0]), x, y-30, paint);
     }
 
     private void connectPoints(int[] rgb, float x, float y, float prevX, float prevY, Canvas canvas){
         Paint paint = new Paint();
         paint.setStrokeWidth(16);
-        paint.setColor(Color.BLUE);
 
         paint.setColor(Color.rgb(rgb[0], rgb[1], rgb[2]));
 
@@ -171,18 +170,19 @@ public class CrimeGraph extends View {
     private float calcPointY(int[] point){
         float y = padding;
 
-        y += Math.round((graphHeight/yRange) * (point[0]-yStartValue));
+        int numAboveLowest = point[0] - yStartValue;
+
+        y += (numAboveLowest*graphHeight/yRange);
 
         return y;
     }
 
     private float calcPointX(int[] point){
-        float x;
-        int monthsSinceStart;
+        float x = padding;
 
-        monthsSinceStart = ((point[1] * 12) + point[2]) - xStartValue;
+        int monthsSinceStart = ((point[1] * 12) + point[2]) - xStartValue;
 
-        x = padding + (monthsSinceStart*graphWidth)/xRangeMonths;
+        x += (monthsSinceStart*graphWidth)/xRangeMonths;
 
         return x;
     }
@@ -214,18 +214,22 @@ public class CrimeGraph extends View {
         yRange = highest - lowest;
     }
 
-    private void plotGraphAxis(Canvas canvas, Paint paint){
-        int stroke = Math.round(paint.getStrokeWidth());
+    private void plotGraphAxis(Canvas canvas){
+        Paint axisPaint = new Paint();
+        axisPaint.setColor(AXIS_COLOR);
+        axisPaint.setStrokeWidth(16);
+        
+        int stroke = Math.round(axisPaint.getStrokeWidth());
 
         //adds padding from view border
         graphWidth = canvas.getWidth() - (padding*2);
         graphHeight = canvas.getHeight() - (padding*2);
 
         //y axis
-        canvas.drawLine(padding,padding+graphHeight -(stroke/2),padding,padding, paint);
+        canvas.drawLine(padding,padding+graphHeight -(stroke/2),padding,padding, axisPaint);
 
         //x axis
-        canvas.drawLine(padding - (stroke/2),padding+graphHeight,padding+graphWidth,padding+graphHeight, paint);
+        canvas.drawLine(padding - (stroke/2),padding+graphHeight,padding+graphWidth,padding+graphHeight, axisPaint);
 
         //to offset the vertices from axis lines
         graphWidth -= stroke*4;
@@ -286,15 +290,10 @@ public class CrimeGraph extends View {
         super(context, attrs, defStyleAttr);
         init(context);
     }
-    public CrimeGraph(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
-    }
 
     public void setYear(int year) {
         this.year = year;
     }
-
     public void setCategory(String category) {
         this.category = category;
     }

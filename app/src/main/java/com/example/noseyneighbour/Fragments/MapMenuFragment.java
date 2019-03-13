@@ -47,7 +47,7 @@ public class MapMenuFragment extends Fragment {
             }
         });
 
-        monthSpinner.setSelection(5);
+        monthSpinner.setSelection(6);
 
         return rootView;
     }
