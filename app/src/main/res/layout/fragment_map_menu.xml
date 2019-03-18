@@ -164,10 +164,25 @@
                 android:ems="10"
                 android:inputType="number"
                 android:text="5"
+                android:textAlignment="viewStart"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/milesTV"
+                app:layout_constraintHorizontal_bias="0.79"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/menuRadiusTV" />
+
+            <TextView
+                android:id="@+id/milesTV"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Miles"
+                android:textColor="@color/entryTextView"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/radiusET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/radiusET" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

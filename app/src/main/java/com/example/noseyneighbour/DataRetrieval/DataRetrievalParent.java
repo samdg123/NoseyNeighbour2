@@ -81,8 +81,10 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
     private ArrayList<LatLng> getLatLngCorners(LatLng center, double radiusMiles){
         ArrayList<LatLng> corners = new ArrayList<>();
 
+        final int metersInMile = 1609;
+
         //needed as the radius to corner will be bigger than middle of an edge. it is also represented in meters
-        double radiusToCorner = (radiusMiles*1609) * Math.sqrt(2);
+        double radiusToCorner = (radiusMiles*metersInMile) * Math.sqrt(2);
 
         LatLng northEast = SphericalUtil.computeOffset(center, radiusToCorner, 45);
         LatLng southEast = SphericalUtil.computeOffset(center, radiusToCorner, 135);

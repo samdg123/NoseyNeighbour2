@@ -25,6 +25,17 @@ import java.util.ArrayList;
 
 public class CrimeGraph extends View {
 
+    private final int AXIS_COLOR = Color.LTGRAY;
+    private final int POINT_COLOR = Color.WHITE;
+    private final int POINT_SIZE = 32;
+
+    private final int TEXT_COLOR = Color.WHITE;
+    private final int TEXT_SIZE = 40;
+    private final int TEXT_SHADOW_RADIUS = 7;
+    private final int TEXT_SHADOW_DX = 0;
+    private final int TEXT_SHADOW_DY = 0;
+    private final int TEXT_SHADOW_COLOR = Color.BLACK;
+
     //int[] in format of int[0] = number of crimes, int[1] = year of crimes, int[2] = month of crimes
     private ArrayList<int[]> numCrimesList;
     private int graphWidth;
@@ -40,15 +51,6 @@ public class CrimeGraph extends View {
     private int year = 2018;
     private String category = "";
 
-    private final int AXIS_COLOR = Color.LTGRAY;
-    private final int POINT_COLOR = Color.WHITE;
-
-    private final int TEXT_COLOR = Color.WHITE;
-    private final int TEXT_SIZE = 40;
-    private final int TEXT_SHADOW_RADIUS = 7;
-    private final int TEXT_SHADOW_DX = 0;
-    private final int TEXT_SHADOW_DY = 0;
-    private final int TEXT_SHADOW_COLOR = Color.BLACK;
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -72,7 +74,7 @@ public class CrimeGraph extends View {
     private void addPoints(Canvas canvas){
         Paint paint = new Paint();
         paint.setColor(POINT_COLOR);
-        paint.setStrokeWidth(32);
+        paint.setStrokeWidth(POINT_SIZE);
 
         float x;
         float y;
