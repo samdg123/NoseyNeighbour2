@@ -17,4 +17,13 @@
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="ButtonStyle">
+        <item name="qb_backgroundColor">@color/button_colour</item>
+        <item name="qb_strokeColor">@color/button_stroke_colour</item>
+        <item name="qb_radius">100</item>
+        <item name="android:textColor">@color/button_text_colour</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
 </resources>

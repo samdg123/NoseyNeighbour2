@@ -6,4 +6,10 @@
     <color name="entryBackground">#5FD5CB</color>
     <color name="entryTextView">#161616</color>
     <color name="entryEntry">#000000</color>
+
+
+    <color name="button_colour">#569B4E</color>
+    <color name="button_stroke_colour">#22356F</color>
+    <color name="button_text_colour">#D6D6D6</color>
+
 </resources>

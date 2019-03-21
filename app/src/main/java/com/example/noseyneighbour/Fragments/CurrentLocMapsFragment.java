@@ -37,6 +37,8 @@ import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
+
 public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallback {
 
     MapView mMapView;
@@ -169,10 +171,10 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         if (crimes != null) {
             clusterManager.addItems(crimes);
             clusterManager.cluster();
-            Toast.makeText(getContext(),  crimes.size() + " crimes found", Toast.LENGTH_LONG).show();
+            Toasty.success(getContext(),  crimes.size() + " crimes found", Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(getContext(), "No crimes found", Toast.LENGTH_LONG).show();
+            Toasty.info(getContext(), "No crimes found", Toast.LENGTH_LONG).show();
         }
 
         progressBar.setVisibility(View.INVISIBLE);

@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import com.example.noseyneighbour.DataRetrieval.DataRetrievalGraph;
 import com.example.noseyneighbour.R;
 import com.example.noseyneighbour.UI_Elements.CrimeGraph;
+import com.manojbhadane.QButton;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class GraphActivity extends AppCompatActivity {
     private Spinner yearSpinner;
     private Spinner categorySpinner;
     private EditText radiusET;
-    private Button searchBtn;
+    private QButton searchBtn;
     private ProgressBar progressBar;
 
     @Override
@@ -57,7 +58,7 @@ public class GraphActivity extends AppCompatActivity {
         crimeGraph.setNumCrimesList(new ArrayList<int[]>());
         crimeGraph.invalidate();
         progressBar.setVisibility(View.VISIBLE);
-        searchBtn.setEnabled(false);
+        searchBtn.setClickable(false);
 
         String category = categorySpinner.getSelectedItem().toString();
         int radius = Integer.parseInt( radiusET.getText().toString() );
@@ -109,7 +110,7 @@ public class GraphActivity extends AppCompatActivity {
         crimeGraph.invalidate();
         progressBar.setVisibility(View.INVISIBLE);
         progressBar.setProgress(0);
-        searchBtn.setEnabled(true);
+        searchBtn.setClickable(true);
     }
 
 }

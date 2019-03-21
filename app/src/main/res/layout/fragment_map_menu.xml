@@ -239,8 +239,9 @@
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
-    <Button
+    <com.manojbhadane.QButton
         android:id="@+id/searchBtn"
+        style="@style/ButtonStyle"
         android:layout_width="216dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -249,7 +250,6 @@
         android:background="#72E890"
         android:text="Search"
         android:textAllCaps="false"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

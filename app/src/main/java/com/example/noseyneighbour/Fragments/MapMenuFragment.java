@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import com.example.noseyneighbour.Activities.GraphActivity;
 import com.example.noseyneighbour.Activities.MapsActivity;
 import com.example.noseyneighbour.R;
+import com.manojbhadane.QButton;
 
 public class MapMenuFragment extends Fragment {
 
@@ -22,8 +23,8 @@ public class MapMenuFragment extends Fragment {
     private Spinner yearSpinner;
     private Spinner monthSpinner;
     private EditText radiusET;
-    private Button searchBtn;
-    private Button graphBtn;
+    private QButton searchBtn;
+    private QButton graphBtn;
 
     private MapsActivity mapsActivity;
 
