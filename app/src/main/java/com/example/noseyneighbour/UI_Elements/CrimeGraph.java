@@ -4,23 +4,17 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.location.Location;
-import android.support.annotation.ColorInt;
+
+import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.noseyneighbour.Activities.GraphActivity;
-import com.example.noseyneighbour.Activities.MapsActivity;
-import com.example.noseyneighbour.Classes.Crime;
-import com.example.noseyneighbour.Handlers.DBHandler;
 import com.example.noseyneighbour.R;
 
 import java.text.DateFormatSymbols;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class CrimeGraph extends View {
