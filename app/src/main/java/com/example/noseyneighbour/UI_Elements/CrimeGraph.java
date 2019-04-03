@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import androidx.annotation.ColorInt;
+import es.dmoral.toasty.Toasty;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -31,7 +33,7 @@ public class CrimeGraph extends View {
     private final int TEXT_SHADOW_COLOR = Color.BLACK;
 
     //int[] in format of int[0] = number of crimes, int[1] = year of crimes, int[2] = month of crimes
-    private ArrayList<int[]> numCrimesList;
+    private ArrayList<int[]> numCrimesList = null;
     private int graphWidth;
     private int graphHeight;
     private int xRangeMonths;
@@ -55,12 +57,17 @@ public class CrimeGraph extends View {
         plotGraphAxis(canvas);
 
         if (numCrimesList == null || numCrimesList.size() < 2) {
-            Toast.makeText(context, "Not enough data", Toast.LENGTH_LONG);
+            //Toasty.error(context, "Not enough data", Toasty.LENGTH_LONG).show();
             return;
         }
 
         setYRange();
         setXRange();
+
+        if (yRange == 0 && numCrimesList.get(0)[0] == 0) {
+            Toasty.error(context, "No Crimes Found", Toasty.LENGTH_LONG).show();
+            return;
+        }
 
         addPoints(canvas);
     }
