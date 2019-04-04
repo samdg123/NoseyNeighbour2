@@ -55,15 +55,13 @@
 
             <TextView
                 android:id="@+id/categoryTV"
+                style="@style/AttributeHeadingMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="sans-serif-medium"
                 android:text="Category"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -90,15 +88,13 @@
 
             <TextView
                 android:id="@+id/yearTV"
+                style="@style/AttributeHeadingMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="sans-serif-medium"
                 android:text="Year"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -142,27 +138,23 @@
 
             <TextView
                 android:id="@+id/menuRadiusTV"
+                style="@style/AttributeHeadingMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="sans-serif-medium"
                 android:text="Radius"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/milesTV"
+                style="@style/AttributeSubHeadingMap"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:fontFamily="sans-serif-light"
                 android:text="Miles"
-                android:textColor="@color/entryTextView"
-                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/menuRadiusTV"
                 app:layout_constraintStart_toStartOf="@+id/menuRadiusTV"
                 app:layout_constraintTop_toBottomOf="@+id/menuRadiusTV" />
@@ -207,15 +199,13 @@
 
             <TextView
                 android:id="@+id/monthTV"
+                style="@style/AttributeHeadingMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="sans-serif-medium"
                 android:text="Month"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

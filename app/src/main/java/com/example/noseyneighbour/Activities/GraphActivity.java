@@ -41,6 +41,7 @@ public class GraphActivity extends AppCompatActivity {
     private CrimeGraph crimeGraph;
     private Spinner categorySpinner;
     private QButton searchBtn;
+    private ProgressBar progressCircle;
     private ProgressBar progressBar;
     private FluidSlider yearSlider;
     private FluidSlider radiusSlider;
@@ -52,6 +53,7 @@ public class GraphActivity extends AppCompatActivity {
 
         crimeGraph = findViewById(R.id.crimeGraph);
         categorySpinner = findViewById(R.id.categorySpinner);
+        progressCircle = findViewById(R.id.progressCircle);
         progressBar = findViewById(R.id.progressBarGraph);
 
         searchBtn = findViewById(R.id.searchGraphBtn);
@@ -130,6 +132,7 @@ public class GraphActivity extends AppCompatActivity {
     private void searchClicked() {
         crimeGraph.setNumCrimesList(new ArrayList<int[]>());
         crimeGraph.invalidate();
+        progressCircle.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         searchBtn.setClickable(false);
 
@@ -181,6 +184,7 @@ public class GraphActivity extends AppCompatActivity {
 
     public void updateCrimeGraph(){
         crimeGraph.invalidate();
+        progressCircle.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
         progressBar.setProgress(0);
         searchBtn.setClickable(true);

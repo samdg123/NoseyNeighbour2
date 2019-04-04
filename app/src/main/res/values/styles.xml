@@ -26,4 +26,27 @@
         <item name="android:textSize">20dp</item>
     </style>
 
+    <style name="AttributeHeading">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/entryTextView</item>
+    </style>
+
+    <style name="AttributeHeadingMap" parent="AttributeHeading">
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="AttributeHeadingGraph" parent="AttributeHeading">
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="AttributeSubHeadingMap" parent="AttributeHeadingMap">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="AttributeSubHeadingGraph" parent="AttributeHeadingGraph">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
 </resources>

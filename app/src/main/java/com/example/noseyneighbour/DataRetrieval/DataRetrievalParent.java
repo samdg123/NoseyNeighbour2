@@ -43,7 +43,7 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
 
 
     public DataRetrievalParent(String crimeType, int year, int month, float radius, Location globalLocation, Context context) {
-        this.crimeType = crimeType;
+        this.crimeType = crimeType.replace(" ", "-");
         this.year = year;
         this.month = month;
         this.radius = radius;

@@ -31,17 +31,17 @@
     </string-array>
 
     <string-array name="crime_category">
-        <item>all-crime</item>
-        <item>anti-social-behaviour</item>
-        <item>bicycle-theft</item>
-        <item>burglary</item>
-        <item>criminal-damage-arson</item>
-        <item>drugs</item>
-        <item>other-theft</item>
-        <item>possession-of-weapons</item>
-        <item>public-order</item>
-        <item>robbery</item>
-        <item>violent-crime</item>
+        <item>All Crime</item>
+        <item>Anti Social Behaviour</item>
+        <item>Bicycle Theft</item>
+        <item>Burglary</item>
+        <item>Criminal Damage Arson</item>
+        <item>Drugs</item>
+        <item>Other Theft</item>
+        <item>Possession of Weapons</item>
+        <item>Public Order</item>
+        <item>Robbery</item>
+        <item>Violent Crime</item>
     </string-array>
 
     <string-array name="radius">
