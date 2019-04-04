@@ -25,7 +25,7 @@ public class MapMenuFragment extends Fragment {
     public static final int MIN_RADIUS = 0;
     public static final int MAX_RADIUS = 10;
 
-    public static final int MIN_YEAR = 2013;
+    public static final int MIN_YEAR = 2016;
     public static final int MAX_YEAR = 2018;
 
     private static final int MIN_MONTH = 1;
@@ -162,7 +162,7 @@ public class MapMenuFragment extends Fragment {
         int value;
         final int total = max - min;
 
-        value = (int) ((slider.getPosition() * total) + min);
+        value = Math.round ((slider.getPosition() * total) + min);
 
         return value;
     }
