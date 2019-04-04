@@ -7,6 +7,7 @@ import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.Log;
 
+import com.example.noseyneighbour.Activities.GraphActivity;
 import com.example.noseyneighbour.Activities.MapsActivity;
 import com.example.noseyneighbour.Classes.Crime;
 import com.example.noseyneighbour.Handlers.DBHandler;
@@ -21,6 +22,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+
+import es.dmoral.toasty.Toasty;
 
 public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
 
@@ -37,6 +40,7 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
     private float radius;
     private LatLng currentLatLng;
     Context context;
+
 
     public DataRetrievalParent(String crimeType, int year, int month, float radius, Location globalLocation, Context context) {
         this.crimeType = crimeType;
@@ -69,12 +73,13 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
 
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("error", "ERROR in fetching... " + e.getMessage());
+            Log.d("DataRetrieval", "Error in fetching crimes");
+            return "failed";
 
         } finally {
         }
 
-        return null;
+        return "success";
     }
 
 
@@ -214,4 +219,12 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
         //dbHandler.addCrimes(crimes);
     }
 
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+
+        if (s.equals("failed")) {
+            Toasty.error(context, "Error in fetching, results may be inaccurate", Toasty.LENGTH_LONG).show();
+        }
+    }
 }

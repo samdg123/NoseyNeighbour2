@@ -3,6 +3,8 @@ package com.example.noseyneighbour.Activities;
 import android.location.Location;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+import es.dmoral.toasty.Toasty;
+
 import android.os.Bundle;
 
 import com.example.noseyneighbour.Classes.Crime;

@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import es.dmoral.toasty.Toasty;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
@@ -142,7 +143,7 @@ public class GraphActivity extends AppCompatActivity {
         }
 
         for (int month = 1; month <= 12; month++) {
-            new DataRetrievalGraph(category, year, month, radius, getLastKnownLocation(), getApplicationContext(), this).execute();
+            new DataRetrievalGraph(category, year, month, radius, getLastKnownLocation(), this, this).execute();
         }
     }
 
@@ -184,5 +185,4 @@ public class GraphActivity extends AppCompatActivity {
         progressBar.setProgress(0);
         searchBtn.setClickable(true);
     }
-
 }

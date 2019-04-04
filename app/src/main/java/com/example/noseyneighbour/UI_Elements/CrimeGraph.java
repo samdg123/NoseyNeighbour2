@@ -56,8 +56,7 @@ public class CrimeGraph extends View {
 
         plotGraphAxis(canvas);
 
-        if (numCrimesList == null || numCrimesList.size() < 2) {
-            //Toasty.error(context, "Not enough data", Toasty.LENGTH_LONG).show();
+        if (numCrimesList == null || numCrimesList.size() < 12) {
             return;
         }
 
