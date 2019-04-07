@@ -50,6 +50,7 @@ public class MapsInfoWindow implements GoogleMap.InfoWindowAdapter {
         return view;
     }
 
+    //gets selected crime from crimes list
     private void getCrime() {
         for (Crime crimeIteration : ((MapsActivity) context).getCrimes()) {
             if (crimeIteration.getId() == id) {

@@ -75,6 +75,7 @@ public class GraphActivity extends AppCompatActivity {
         yearSlider.setStartText("" + MIN_YEAR);
         yearSlider.setEndText("" + MAX_YEAR);
 
+        //function to update slider bubble text on call
         Function0<Unit> function0 = new Function0<Unit>() {
             @Override
             public Unit invoke() {
@@ -100,6 +101,7 @@ public class GraphActivity extends AppCompatActivity {
         radiusSlider.setStartText("" + MIN_RADIUS);
         radiusSlider.setEndText("" + MAX_RADIUS);
 
+        //function to update slider bubble text on call
         Function0<Unit> function0 = new Function0<Unit>() {
             @Override
             public Unit invoke() {
@@ -145,6 +147,7 @@ public class GraphActivity extends AppCompatActivity {
             crimeGraph.setCategory(category);
         }
 
+        //send a data request for each month of the year
         for (int month = 1; month <= 12; month++) {
             new DataRetrievalGraph(category, year, month, radius, getLastKnownLocation(), this, this).execute();
         }

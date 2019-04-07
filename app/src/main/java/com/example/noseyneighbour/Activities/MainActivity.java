@@ -59,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
         requestPermissions();
     }
 
+    //gray the button icons if the user does not have correct permissions
     private Drawable greyOutIcon(Drawable drawable){
         drawable.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         return drawable;
     }
 
+    //undo the gray-ing of buttons when permissions have been granted
     private void enableButtons(){
         mapIV.setImageDrawable(getDrawable(R.drawable.ic_map));
         graphIV.setImageDrawable(getDrawable(R.drawable.ic_graph));

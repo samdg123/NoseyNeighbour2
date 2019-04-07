@@ -33,6 +33,7 @@ public class Crime implements ClusterItem {
         dbHandler.addSavedCrime(id);
     }
 
+    //formats the crime category to be more visually appealing to the user
     public String getFormattedCategory(){
         String string;
         string = category.replace('-', ' ');

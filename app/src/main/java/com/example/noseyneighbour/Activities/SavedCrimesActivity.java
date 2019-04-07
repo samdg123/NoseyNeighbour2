@@ -39,13 +39,14 @@ public class SavedCrimesActivity extends AppCompatActivity implements OnMapReady
         RecyclerView recyclerView = findViewById(R.id.crimesRV);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        llm.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
         SavedCrimesRVAdapter crimesAdapter = new SavedCrimesRVAdapter(crimes, this);
         recyclerView.setAdapter(crimesAdapter);
     }
 
+    //show the number of saved crimes beneath heading
     public void updateNumCrimes(int num){
         numCrimesTV.setText(num + " crimes saved");
     }
@@ -57,6 +58,7 @@ public class SavedCrimesActivity extends AppCompatActivity implements OnMapReady
         init();
     }
 
+    //setup map dialog when user selects 'show on map'
     public void showCrimeOnMap(Crime crime){
         selectedCrime = crime;
 
@@ -71,6 +73,7 @@ public class SavedCrimesActivity extends AppCompatActivity implements OnMapReady
         map.getMapAsync(this);
     }
 
+    //move camera to selected crime on map dialog and add marker for selected crime
     @Override
     public void onMapReady(GoogleMap googleMap) {
         LatLng latLng = selectedCrime.getPosition();

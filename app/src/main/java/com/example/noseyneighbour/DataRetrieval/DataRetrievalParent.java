@@ -82,7 +82,7 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
         return "success";
     }
 
-
+    //gets the latlng for each corner of the central latlng
     private ArrayList<LatLng> getLatLngCorners(LatLng center, double radiusMiles){
         ArrayList<LatLng> corners = new ArrayList<>();
 
@@ -104,6 +104,7 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
         return corners;
     }
 
+    //creates a list of crimes along with their attributes from the returned JSON
     public void parseJSON(InputStream inputStream) throws IOException {
         crimes = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream));
@@ -211,6 +212,7 @@ public class DataRetrievalParent extends AsyncTask<Void, Void, String> {
         reader.close();
     }
 
+    //returns an error if the task fails
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);

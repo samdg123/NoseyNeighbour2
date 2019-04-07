@@ -99,9 +99,12 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
 
         getLastKnownLocation();
 
+        //moves mapcamera to current location
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(11).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        //if a marker is not selected then the heart icon will disappear
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -112,6 +115,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         setUpClusterer();
     }
 
+    //if permissions are not granted, requests them, then gets current location
     private void getLastKnownLocation(){
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
 
@@ -136,7 +140,8 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         }
     }
 
-    public void setMarkers(){
+    //gets markers from the police api
+    public void getMarkers(){
         progressBar.setVisibility(View.VISIBLE);
         saveIV.setVisibility(View.INVISIBLE);
         googleMap.clear();
@@ -180,6 +185,7 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         progressBar.setVisibility(View.INVISIBLE);
     }
 
+    //controls what happens when a crime marker is clicked
     public class MarkerOnClickListener implements ClusterManager.OnClusterItemClickListener{
 
         @Override
@@ -203,13 +209,6 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         }
     }
 
-    public GoogleMap getGoogleMap() {
-        return googleMap;
-    }
-    public MapView getmMapView() {
-        return mMapView;
-    }
-
     private void saveClicked(){
         crimeSaved = !crimeSaved;
         DBHandler dbHandler = new DBHandler(getContext());
@@ -223,6 +222,8 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
             saveIV.setImageResource(R.drawable.ic_like_unchecked);
         }
     }
+
+    //if configure button pressed go to crime search parameter fragment
     private void configureClicked(){
         ((MapsActivity)getActivity()).setViewPager(0);
     }

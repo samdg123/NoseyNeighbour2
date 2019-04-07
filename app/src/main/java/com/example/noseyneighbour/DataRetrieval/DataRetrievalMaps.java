@@ -17,6 +17,7 @@ public class DataRetrievalMaps extends DataRetrievalParent {
         this.googleMap = googleMap;
     }
 
+    //update the map activity with the crime list and sets the square border around the crimes
     @Override
     protected void onPostExecute(String response) {
         ((MapsActivity)context).getCurrentLocMapsFragment().setClusterManagerItems(crimes);

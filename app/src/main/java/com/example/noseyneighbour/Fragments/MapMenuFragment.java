@@ -7,12 +7,10 @@ import androidx.fragment.app.Fragment;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
-import kotlin.jvm.functions.Function3;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.noseyneighbour.Activities.MapsActivity;
@@ -75,6 +73,7 @@ public class MapMenuFragment extends Fragment {
         yearSlider.setStartText("" + MIN_YEAR);
         yearSlider.setEndText("" + MAX_YEAR);
 
+        //function to update slider bubble text on call
         Function0<Unit> function0 = new Function0<Unit>() {
             @Override
             public Unit invoke() {
@@ -100,6 +99,7 @@ public class MapMenuFragment extends Fragment {
         monthSlider.setStartText("" + MIN_MONTH);
         monthSlider.setEndText("" + MAX_MONTH);
 
+        //function to update slider bubble text on call
         Function0<Unit> function0 = new Function0<Unit>() {
             @Override
             public Unit invoke() {
@@ -125,6 +125,7 @@ public class MapMenuFragment extends Fragment {
         radiusSlider.setStartText("" + MIN_RADIUS);
         radiusSlider.setEndText("" + MAX_RADIUS);
 
+        //function to update slider bubble text on call
         Function0<Unit> function0 = new Function0<Unit>() {
             @Override
             public Unit invoke() {
@@ -176,7 +177,7 @@ public class MapMenuFragment extends Fragment {
 
     private void searchClicked(){
         setCrimeSearchParameters();
-        mapsActivity.getCurrentLocMapsFragment().setMarkers();
+        mapsActivity.getCurrentLocMapsFragment().getMarkers();
         mapsActivity.setViewPager(1);
     }
 

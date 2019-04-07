@@ -56,13 +56,16 @@ public class CrimeGraph extends View {
 
         plotGraphAxis(canvas);
 
+        //if the crimes list is not initialised or contains less than 12 months
         if (numCrimesList == null || numCrimesList.size() < 12) {
             return;
         }
 
+
         setYRange();
         setXRange();
 
+        //if all months have 0 crimes
         if (yRange == 0 && numCrimesList.get(0)[0] == 0) {
             Toasty.error(context, "No Crimes Found", Toasty.LENGTH_LONG).show();
             return;
@@ -83,14 +86,19 @@ public class CrimeGraph extends View {
         int[] prevPoint = new int[3];
         final float pointRadius = 16;
 
+        //for each month in the list
         for(int[] point : numCrimesList){
             x = calcPointX(point);
             y = canvas.getHeight()-calcPointY(point);
 
+            //if current point isn't the first in the list
             if(prevX != 0 && prevY != 0) {
+                //calculate the line colour based on gradient
                 int[] rgb = calculateLineColour(point, prevPoint);
+                //draws the line between current and last point
                 connectPoints(rgb, x, y, prevX, prevY, canvas);
 
+                //if current point is the last in the list
                 if (numCrimesList.size()-1 == numCrimesList.lastIndexOf(point)){
                     canvas.drawCircle(x, y, pointRadius, paint);
                     drawTextOnPoint(point, x, y, canvas);
@@ -99,6 +107,7 @@ public class CrimeGraph extends View {
                 canvas.drawCircle(prevX, prevY, pointRadius, paint);
                 drawTextOnPoint(prevPoint, prevX, prevY, canvas);
 
+                //if current point is the first in the list
             } else {
                 canvas.drawCircle(x, y, pointRadius, paint);
             }
@@ -169,6 +178,7 @@ public class CrimeGraph extends View {
         return rgb;
     }
 
+    //calculate the y coordinate of current point
     private float calcPointY(int[] point){
         float y = padding;
 
@@ -179,6 +189,7 @@ public class CrimeGraph extends View {
         return y;
     }
 
+    //calculate the x coordinate of current point
     private float calcPointX(int[] point){
         float x = padding;
 
@@ -203,6 +214,7 @@ public class CrimeGraph extends View {
         int highest = 0;
         int lowest = numCrimesList.get(0)[0];
 
+        //for each month in the list if the month is higher than the previously known highest then set the highest to that... and same for the lowest
         for (int[] numCrimes : numCrimesList) {
             if (numCrimes[0] > highest) {
                 highest = numCrimes[0];

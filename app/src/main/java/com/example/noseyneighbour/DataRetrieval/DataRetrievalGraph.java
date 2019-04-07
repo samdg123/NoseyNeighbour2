@@ -30,6 +30,7 @@ public class DataRetrievalGraph extends DataRetrievalParent {
         numCrimes[2] = month;
     }
 
+    //counts the number of crimes in the returned JSON
     @Override
     public void parseJSON(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream));
@@ -39,7 +40,6 @@ public class DataRetrievalGraph extends DataRetrievalParent {
             return;
         }
 
-
         while (reader.hasNext()) {
             numCrimes[0] ++;
             reader.skipValue();
@@ -48,6 +48,7 @@ public class DataRetrievalGraph extends DataRetrievalParent {
         reader.close();
     }
 
+    //update the activity with the new crime month
     @Override
     protected void onPostExecute(String response) {
         super.onPostExecute(response);

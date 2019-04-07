@@ -54,6 +54,8 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
         crimeViewHolder.setOutcomeText(crime.getOutcomeStatus());
 
         crimeViewHolder.itemView.setClickable(true);
+
+        //show options dialog when user clicks a saved crime
         crimeViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,11 +73,13 @@ public class SavedCrimesRVAdapter extends RecyclerView.Adapter<SavedCrimesRVAdap
                         }
                     }
 
+                    //if user selects 'delete'
                     private void removeFromFavorites(){
                         DBHandler dbHandler = new DBHandler(context);
                         dbHandler.removeCrime(crime);
 
                         crimes.remove(crime);
+                        //update recycler view
                         notifyDataSetChanged();
                         activity.updateNumCrimes(crimes.size());
                     }

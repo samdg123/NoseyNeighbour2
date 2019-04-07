@@ -21,6 +21,7 @@ public class CrimeClusterRenderer extends DefaultClusterRenderer<Crime> {
         this.context = context;
     }
 
+    //sets marker icon based on crime category
     @Override
     protected void onBeforeClusterItemRendered(Crime item, MarkerOptions markerOptions) {
         super.onBeforeClusterItemRendered(item, markerOptions);
@@ -60,7 +61,7 @@ public class CrimeClusterRenderer extends DefaultClusterRenderer<Crime> {
                 break;
         }
 
-
+        //sets drawable to bitmap icon
         IconGenerator iconGenerator = new IconGenerator(context);
         iconGenerator.setBackground(icon);
         Bitmap bitmap = iconGenerator.makeIcon();
