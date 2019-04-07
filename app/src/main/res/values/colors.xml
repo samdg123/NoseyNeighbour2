@@ -12,4 +12,6 @@
     <color name="button_stroke_colour">#22356F</color>
     <color name="button_text_colour">#D6D6D6</color>
 
+    <color name="main_menu_text_colour">#FDFDFE</color>
+
 </resources>
