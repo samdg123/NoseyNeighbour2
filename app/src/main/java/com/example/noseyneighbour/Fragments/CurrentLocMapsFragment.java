@@ -146,8 +146,6 @@ public class CurrentLocMapsFragment extends Fragment implements OnMapReadyCallba
         saveIV.setVisibility(View.INVISIBLE);
         googleMap.clear();
 
-        ((MapsActivity)getActivity()).setLocation(location);
-
         DataRetrievalMaps dataRetrieval = new DataRetrievalMaps(googleMap, ((MapsActivity)getActivity()).getCrimeType(), ((MapsActivity)getActivity()).getYear(), ((MapsActivity)getActivity()).getMonth(), ((MapsActivity)getActivity()).getRadius(), location, getContext());
         dataRetrieval.execute();
     }

@@ -22,24 +22,15 @@ public class MapsActivity extends AppCompatActivity {
     private CurrentLocMapsFragment currentLocMapsFragment;
     private MapMenuFragment mapMenuFragment;
     private ArrayList<Crime> crimes;
-    private boolean currentLoc;
-    private Location location = null;
 
-    private String crimeType = "all-crime";
-    private int year = 2018;
-    private int month = 8;
-    private float radius = 5;
+    private String crimeType;
+    private int year;
+    private int month;
+    private float radius;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentLoc = getIntent().getBooleanExtra("currentLoc", false);
-
-        if (currentLoc) {
-
-        } else {
-
-        }
 
         setContentView(R.layout.activity_maps);
         viewPager = findViewById(R.id.viewPager);
@@ -101,8 +92,5 @@ public class MapsActivity extends AppCompatActivity {
     }
     public void setCrimes(ArrayList<Crime> crimes) {
         this.crimes = crimes;
-    }
-    public void setLocation(Location location) {
-        this.location = location;
     }
 }

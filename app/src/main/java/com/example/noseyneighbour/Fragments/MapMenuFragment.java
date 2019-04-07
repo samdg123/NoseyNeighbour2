@@ -169,7 +169,10 @@ public class MapMenuFragment extends Fragment {
     }
 
     private void setCrimeSearchParameters(){
-        mapsActivity.setCrimeType(categorySpinner.getSelectedItem().toString());
+        //reformat category to be suitable for the url
+        String crimeCategory = categorySpinner.getSelectedItem().toString().toLowerCase().replace(" ", "-");
+
+        mapsActivity.setCrimeType(crimeCategory);
         mapsActivity.setRadius(radiusSliderValue());
         mapsActivity.setYear(yearSliderValue());
         mapsActivity.setMonth(monthSliderValue());
